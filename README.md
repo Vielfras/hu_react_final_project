@@ -1,2 +1,6 @@
-# hu_react_final_project
-React module final project. A buiisness card SAP.
+# Final React Module Project
+
+## API 
+- [Users](https://documenter.getpostman.com/view/25008645/2s9YXcd5BL)
+- [Cards](https://documenter.getpostman.com/view/25008645/2s9YXcd5BE)
+- [Token Parsing](https://www.npmjs.com/package/jwt-decode)
