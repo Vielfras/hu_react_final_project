@@ -1,12 +1,13 @@
-
 import './App.css'
-
 import Default from './layouts/Default/Default'
 
 export default function App() {
+  
   return (
-    <>
-      <Default></Default>
-    </>
+    <div className='App'>
+
+      <Default/>
+      
+    </div>
   )
 }

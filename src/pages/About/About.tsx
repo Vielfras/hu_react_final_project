@@ -1,12 +1,9 @@
-import "./About.css"
+import './About.css'
 
-interface IAbout {
-}
-
-export default function About(props:IAbout) {
+export default function About() {
   return (
-    <div className='About'>
-      <h1> About</h1>
+    <div className='About Page'>
+      About page content ...
     </div>
   )
 }

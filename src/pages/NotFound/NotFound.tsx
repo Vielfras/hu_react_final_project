@@ -1,12 +1,10 @@
-import "./NotFound.css"
+import './NotFound.css'
 
-interface INotFound {
-}
-
-export default function NotFound(props:INotFound) {
+export default function NotFound() {
   return (
-    <div className='NotFound'>
-      <p>404</p>
+    <div className='NotFound Page'>
+      <h1>404</h1>
+      <p>Sorry, We could not find the page you were looking for.</p>
     </div>
   )
 }
