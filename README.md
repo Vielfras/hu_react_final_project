@@ -4,3 +4,7 @@
 - [Users](https://documenter.getpostman.com/view/25008645/2s9YXcd5BL)
 - [Cards](https://documenter.getpostman.com/view/25008645/2s9YXcd5BE)
 - [Token Parsing](https://www.npmjs.com/package/jwt-decode)
+
+## Buisiness
+"email": "ellvis@email.com",
+"password": "Abc!123Abc"
