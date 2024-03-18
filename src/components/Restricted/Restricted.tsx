@@ -1,23 +1,33 @@
-
-// ============================================= WORK IN PROGRESS =============================================
-
-import { PropsWithChildren, useContext } from "react"
+import { useMemo, PropsWithChildren, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
+type UserRolesType = undefined | 'user' | 'business' | 'admin';
+
 interface IRestrictedProps {
-  minimumRole:('user'|'business'|'admin')
+  allowedRoles: UserRolesType[];
 }
 
-export default function Restricted(props:PropsWithChildren<IRestrictedProps>) {
+export default function Restricted(props: PropsWithChildren<IRestrictedProps>) {
+  const { allowedRoles, children } = props;
+  const auth = useContext(AuthContext);
 
-  const { minimumRole, children } = props;
-  
-  const auth = useContext(AuthContext)
-  const userRole = auth?.userDetails
+  const userRole = useMemo(() => {
+    let role: UserRolesType = undefined;
+    if (auth?.userDetails?.isAdmin) {
+      role = 'admin';
+    } else if (auth?.userDetails?.isBusiness) {
+      role = 'business';
+    } else if (auth?.userDetails) {
+      role = 'user';
+    }
+    return role;
+  }, [auth?.userDetails]); // Dependencies array- useMemo will only recompute the memoized value when 'auth.userDetails' has changed.
 
   return (
-    {children}
-  )
+    <>
+      {
+        allowedRoles.includes(userRole) && children
+      }
+    </>
+  );
 }
-
-// ============================================= WORK IN PROGRESS =============================================
