@@ -1,6 +1,11 @@
 import './Home.css'
+import { useContext } from 'react'
+import { ToastsContext } from '../../context/ToastsContext'
 
 export default function Home() {
+
+  const toasts = useContext(ToastsContext)
+
   return (
     <div className='Home Page'>
         <div className="container-fluid py-5">
@@ -8,7 +13,7 @@ export default function Home() {
           <h3 className='pb-3'>IF YOU CAN'T HANDLE MORE CUSTOMERS.</h3>
           <p className="col-md-6 fs-4 mx-auto pb-3">Hundreds of people are currently surfing the web looking for a service right like the one that your business is offering.</p>
           <p className="col-md-6 fs-4 mx-auto pb-3">Help them out 😍 Create your FREE business card NOW.</p>
-          <button className="btn btn-primary btn-lg" type="button">Tell me how !</button>
+          <button className="btn btn-primary btn-lg" type="button" onClick={()=>toasts?.addToast("🍺","Wazzzup ?","Here's a toast for you 😄","primary")}>Click here to make a Toast !</button>
       </div>
     </div>
   )

@@ -15,6 +15,10 @@ import Business from '../../pages/Business/Business'
 import Admin from '../../pages/Admin/Admin'
 import NotFound from '../../pages/NotFound/NotFound'
 import SignIn from '../../pages/SignIn/SignIn'
+import UserProfile from '../../pages/UserProfile/UserProfile'
+import CardDetails from '../../pages/CardDetails/CardDetails'
+import SignUp from '../../pages/SignUp/SignUp'
+import MyOwnCards from '../../pages/MyOwnCards/MyOwnCards'
 
 export default function Default() {
   return (
@@ -29,6 +33,10 @@ export default function Default() {
         <Route path='/business' element={<Business/>}/>
         <Route path='/admin' element={<Admin/>}/>
         <Route path='/signin' element={<SignIn/>}/>
+        <Route path='/signup' element={<SignUp/>}/>
+        <Route path='/profile' element={<UserProfile/>}/>
+        <Route path='/mycards' element={<MyOwnCards/>}/>
+        <Route path='/card-details/:cardId' element={<CardDetails/>}/>
         <Route path='*' element={<NotFound/>}/>
       </Routes>
 

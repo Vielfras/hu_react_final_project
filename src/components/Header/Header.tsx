@@ -1,9 +1,10 @@
 import './Header.css'
 import { FaCircleUser, FaMagnifyingGlass } from "react-icons/fa6";
 import { BiSolidCircle } from "react-icons/bi";
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
+import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 
 const elmDocument = document.querySelector('html') as HTMLHtmlElement
 
@@ -13,10 +14,26 @@ export default function Header() {
 
   const auth = useContext(AuthContext)
 
+  useEffect(()=>{
+    const lsTheme = localStorage.getItem('theme')
+
+    if (lsTheme) {
+      // found theme key
+      elmDocument.setAttribute('data-bs-theme',lsTheme)
+      setTheme(lsTheme)
+    } else {
+      // theme key not found
+      localStorage.setItem('theme','light')
+      elmDocument.setAttribute('data-bs-theme','light')
+      setTheme('light')
+    }
+  },[])
+
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light'; // Determine the new theme based on the current one
     setTheme(newTheme); // Update the state with the new theme
     elmDocument.setAttribute('data-bs-theme', newTheme); // Set the attribute based on the new theme
+    localStorage.setItem('theme', newTheme)
   }
 
   return (
@@ -62,6 +79,14 @@ export default function Header() {
             <li className="nav-item mx-2">
               <Link to={'/user'} className='nav-link'>User</Link>
             </li>
+
+            {
+              (auth?.userDetails) &&
+                <li className="nav-item mx-2">
+                  <Link to={'/mycards'} className='nav-link'>My Cards</Link>
+                </li>
+            }
+
             <li className="nav-item mx-2">
               <Link to={'/business'} className='nav-link'>Biz</Link>
             </li>
@@ -71,14 +96,27 @@ export default function Header() {
 
             {/* ---- Light\Dark Mode --------------------------------------------------------------------------------------------------------------------------- */}
             <li className="nav-item mx-3 theme-icon my-auto">
-              <button type="button" className='dark-light-mode-button' onClick={() => toggleTheme()}><svg fill={theme === 'light' ? 'black' : 'white'} viewBox="0 0 20 20" width="22" height="22"><path d="M10 1.81818C5.48818 1.81818 1.81818 5.48818 1.81818 10C1.81818 14.5118 5.48818 18.1818 10 18.1818C14.5118 18.1818 18.1818 14.5118 18.1818 10C18.1818 5.48818 14.5118 1.81818 10 1.81818ZM10 20C4.48636 20 0 15.5136 0 10C0 4.48636 4.48636 0 10 0C15.5136 0 20 4.48636 20 10C20 15.5136 15.5136 20 10 20Z"></path><path d="M5.51758 14.4869C7.97576 16.9442 11.9603 16.9442 14.4185 14.4869C16.8757 12.0296 16.8757 8.04418 14.4185 5.58691L5.51758 14.4869Z"></path></svg></button>
+              <button type="button" className='dark-light-mode-button' onClick={() => toggleTheme()}>
+                
+                {
+                  theme === 'light' ?
+                    <BsFillMoonStarsFill size={18} fill='#000070'/>
+                  :
+                    <BsFillSunFill size={18} fill='#FFFFB0'/>
+                }
+              </button>
             </li>
 
             {/* ---- User Profile ------------------------------------------------------------------------------------------------------------------------------ */}
             <li className="nav-item mx-3">
-              <a href='#' className="nav-link">
-                <FaCircleUser className={`profile-icon ${auth?.email && 'signed-in'}`} size={24}/>
-              </a>
+                <Link to='/profile' className="nav-link">
+                  {
+                    (auth?.userDetails) ?
+                      <img className='profile-icon' style={{width:'24px',height:'24px',objectFit:'contain', borderRadius:'90px'}} src={auth.userDetails.image.url} alt={auth.userDetails.image.alt}/>
+                    :
+                      <FaCircleUser className='profile-icon' style={{filter: 'drop-shadow(2px 2px 2px rgb(0 0 0 / 0.5))'}} size={24}/>
+                  }
+                </Link>
             </li>
 
           </ul>

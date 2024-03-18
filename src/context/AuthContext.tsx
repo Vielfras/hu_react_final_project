@@ -1,64 +1,64 @@
-import { jwtDecode } from "jwt-decode"
-import { createContext, useState } from "react"
+import { IUserDetails, IUserSignup } from "../interfaces/UserInterfaces"
+import { createContext, useEffect, useState } from "react"
+import { doSignIn, doSignUp, fetchUserDetails, removeToken } from "../services/UserService"
 
 interface AuthContextType {
-  email:string|null
-  isBusiness:boolean
-  isAdmin:boolean
-  signIn: (email:string, password:string) => Promise<void|string>
-  signOut: () => void
-}
-
-interface CustomJwtPayload {
-  _id:string
-  isBusiness:boolean
-  isAdmin:boolean
-  iat:number
+  userDetails:IUserDetails|undefined
+  signIn: (email:string, password:string) => Promise<{error:string|null}>
+  signUp: ({}:IUserSignup) => Promise<{error:string|undefined}>
+  signOut: () => Promise<void>
 }
 
 export const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
 export default function AuthProvider({children}:{children:React.ReactNode}) {
 
-  const [email,setEmail] = useState<null|string>(null)
-  const [isBusiness,setIsBusiness] = useState<boolean>(false)
-  const [isAdmin,setIsAdmin] = useState<boolean>(false)
+  const [userDetails,setUserDetails] = useState<IUserDetails|undefined>(undefined)
 
-  const signIn = async (email:string, password:string) => {
-    try {
-      const response = await fetch('https://monkfish-app-z9uza.ondigitalocean.app/bcard2/users/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({email,password})
-      })
-      console.log('response=',response)
-
-      const data = await response.text()
-      console.log('data=',data)
-
-      if (!response.ok) throw new Error(data)
-
-      const decoded = jwtDecode<CustomJwtPayload>(data)
-      console.log('decoded=',decoded)
-
-      setEmail(email)
-      setIsBusiness(decoded.isBusiness)
-      setIsAdmin(decoded.isAdmin)
-
-    } catch(err) {
-      const errMessage = (err as Error).message
-      return errMessage
+  useEffect(()=>{
+    const loadUserDetails = async () => {
+      const { error, result } = await fetchUserDetails()
+      if (error) setUserDetails(undefined)
+      setUserDetails(result)
     }
+    loadUserDetails();
+  },[userDetails])
+  
+  const signIn = async (email:string, password:string):Promise<{error:string|null}> => {
+    let { error,result } = await doSignIn(email,password)
+
+    if (error) { 
+      signOut()
+      return { error }
+    }
+
+    if (result) {
+      setUserDetails(result)     // TODO: return result be make sure state is changed before returning a value
+      return { error:null }
+    }
+
+    return { error:null }
   }
 
-  const signOut = () => {
-    setEmail(null)
-    setIsBusiness(false)
-    setIsAdmin(false)
+  const signUp = async (userData:IUserSignup):Promise<{error:string|undefined}> => {
+
+    let { error } = await doSignUp(userData)
+
+    if (error) { 
+      signOut()
+      return { error }
+    }
+
+    return { error:undefined }
+  }
+
+  const signOut = async () => {
+    await removeToken()    
+    setUserDetails(undefined)
   }
 
   return (
-    <AuthContext.Provider value={{ email, isBusiness, isAdmin, signIn, signOut }}>
+    <AuthContext.Provider value={{ userDetails, signIn, signOut, signUp }}>
       {children}
     </AuthContext.Provider>
   )

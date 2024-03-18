@@ -1,30 +1,30 @@
-import './Free.css'
+import './MyOwnCards.css'
 
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Col, Row, Button, Card, Spinner } from 'react-bootstrap';
 
 import { ICard } from '../../interfaces/CardInterfaces';
-import { doGetAllCards } from '../../services/CardsService';
+import { doGetMyCards } from '../../services/CardsService';
 import { AiOutlineLike } from 'react-icons/ai';
 
-export default function Free() {
+export default function MyOwnCards() {
 
-  const [cards, setCards] = useState<ICard[] | null>(null)
-  const [error, setError] = useState<string | null>(null)
+  const [cards, setCards] = useState<ICard[] | undefined>(undefined)
+  const [error, setError] = useState<string | undefined>(undefined)
 
   const navigate = useNavigate()
 
   useEffect(() => {
-    const getAllCards = async () => {
-      const { error, result } = await doGetAllCards()
+    const getMyCards = async () => {
+      const { error, result } = await doGetMyCards()
       if (error) {
         setError(error)
       } else {
         setCards(result)
       }
     }
-    getAllCards();
+    getMyCards();
   }, [])
 
   const goToCardDetails = (cardId: string) => {
@@ -32,9 +32,10 @@ export default function Free() {
   }
 
   return (
-    <div className='Free Page'>
-      <h3>Free Page</h3>
+    <div className='MyOwnCards Page'>
+      <h3>My Cards</h3>
       <br></br>
+
       <div>
         {(error) && <p>Error getting cards 😞 <br></br> {error}</p>}
       </div>
@@ -54,7 +55,7 @@ export default function Free() {
                       </Card.Text>
                       <Button variant="primary" size='sm' onClick={() => goToCardDetails(card._id)}>Go to card</Button>
                     </Card.Body>
-                    <Card.Footer className="text-muted">{card.likes.length} <AiOutlineLike size={18} style={{marginTop:'-5px'}}/></Card.Footer>
+                    <Card.Footer className="text-muted">{card.likes.length} <AiOutlineLike size={18} style={{ marginTop: '-5px' }} /></Card.Footer>
                   </Card>
                 </Col>
               ))}
@@ -63,19 +64,20 @@ export default function Free() {
           </>
         :
           (!error) &&
-            <>
-              <Spinner
-                as="span"
-                animation="grow"
-                size="sm"
-                role="status"
-                variant='primary'
-                aria-hidden="true"
-                className='me-2'
-              />
-              <span>Loading cards, Please wait ...</span>
-            </>
+          <>
+            <Spinner
+              as="span"
+              animation="grow"
+              size="sm"
+              role="status"
+              variant='primary'
+              aria-hidden="true"
+              className='me-2'
+            />
+            <span>Loading cards, Please wait ...</span>
+          </>
       }
+
     </div>
   )
 }

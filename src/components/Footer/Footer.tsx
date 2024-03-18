@@ -1,8 +1,23 @@
-import { BiSolidCircle } from 'react-icons/bi'
 import './Footer.css'
+import { BiSolidCircle } from 'react-icons/bi'
 import { FaFacebook, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa6'
+import { useState } from 'react'
+
+type subscribingStatusType = 'before'|'working'|'after'
 
 export default function Footer() {
+
+  //#region     -- start: fake subscribe
+  const [email,setEmail] = useState('')
+  const [subPhase,setSubPhase] = useState<subscribingStatusType>('before')
+  const handleSubscribe = async () => {
+    setSubPhase('working')
+    const response = await fetch('https://fakeresponder.com?sleep=2000')
+    console.log(`Email '${email}' Subscribed successfully! (status:${response.status})`)
+    setSubPhase('after')
+  }
+  //#endregion  -- end: fake subscribe
+
   return (
     <div className='Footer'>
       <footer className='border-top pt-4'>
@@ -19,7 +34,7 @@ export default function Footer() {
                   We know it's tough, BizCard is a company dedicated to helping small business owners just like you connect with the right clients.
                 </p>
                 <p>
-                  Copyright &copy; BizCard, 2024 All rights reserved.
+                  Copyright &copy; BizCard, {new Date().getFullYear().toString()} All rights reserved.
                 </p>
               </div>
             </div>
@@ -79,8 +94,19 @@ export default function Footer() {
                 <div>
                   <label htmlFor="Newsletter" className="form-label">Subscribe To Our Newsletter</label>
                   <div className='d-flex'>
-                    <input type="text" className="form-control form-control-sm me-2" placeholder="Enter Your Email" />
-                    <button className="btn btn-sm btn-danger">Subscribe</button>
+                    <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} className="form-control form-control-sm me-2" placeholder="name@example.com" disabled={subPhase==='after'}/>
+                    <button onClick={handleSubscribe} className={`btn btn-sm ${subPhase==='after'?'btn-success':'btn-danger'}`} style={{lineHeight:'18px'}} disabled={subPhase==='after'}>
+                      { 
+                        subPhase==='before' && 'Subscribe'
+                        ||
+                        subPhase==='working' && <div className='d-flex'>
+                                                  <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                                                  <span role="status">Wait...</span>
+                                                </div>
+                        ||
+                        subPhase==='after' && 'Success'
+                      }
+                    </button>
                   </div>
                 </div>
               </div>

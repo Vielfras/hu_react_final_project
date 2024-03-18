@@ -7,13 +7,16 @@ import 'bootstrap/dist/js/bootstrap.bundle.min'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 import AuthProvider from './context/AuthContext.tsx'
+import ToastsProvider from './context/ToastsContext.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <AuthProvider>
-    <Router>
-      <React.StrictMode>
-        <App/>
-      </React.StrictMode>
-    </Router>
+    <ToastsProvider>
+      <Router>
+        <React.StrictMode>
+          <App />
+        </React.StrictMode>
+      </Router>
+    </ToastsProvider>
   </AuthProvider>
 )
