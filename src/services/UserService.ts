@@ -27,7 +27,7 @@ export const doSignIn = async (email:string,password:string): Promise<{error:str
     await saveToken(data)
 
     // let's try to fetch user details from the server
-    let { error,result } = await fetchUserDetails();
+    const { error,result } = await fetchUserDetails();
     // there's an error, return it
     if (error) return { error }
     // no error- return result
