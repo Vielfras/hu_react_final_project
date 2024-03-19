@@ -41,8 +41,7 @@ export default function AuthProvider({children}:{children:React.ReactNode}) {
   }
 
   const signUp = async (userData:IUserSignup):Promise<{error:string|undefined}> => {
-
-    let { error } = await doSignUp(userData)
+    const { error } = await doSignUp(userData)
 
     if (error) { 
       signOut()

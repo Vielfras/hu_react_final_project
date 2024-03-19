@@ -7,7 +7,6 @@ import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import FormField from '../../components/FormField/FormField';
 
 export default function SignUp() {
-
   // const [firstName, setFirstName] = useState<string>('Arik')
   // const [lastName, setLastName] = useState<string>('Lavi')
   // const [phone,setPhone] = useState<string>('0525807777')
@@ -42,10 +41,33 @@ export default function SignUp() {
   const navigate = useNavigate();
 
 
+  const nameRegex = /^[A-Za-z]{2,}$/;
   const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
-  const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[_*&^%$#@!-])[A-Za-z\d_*&^%$#@!-]{8,}$/;
+  const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d.*\d.*\d.*\d)(?=.*[_*&^%$#@!-])[A-Za-z\d_*&^%$#@!-]{8,}$/;
+  const [firstNameIsValid, setFirstNameIsValid] = useState<boolean>(true);
+  const [middleNameIsValid, setMiddleNameIsValid] = useState<boolean>(true);
+  const [lastNameIsValid, setLastNameIsValid] = useState<boolean>(true);
   const [emailIsValid, setEmailIsValid] = useState<boolean>(true);
   const [passwordIsValid, setPasswordIsValid] = useState<boolean>(true);
+
+  const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setFirstName(value);
+    setFirstNameIsValid(nameRegex.test(value));
+  };
+
+  const handleMiddleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setMiddleName(value);
+    // Optional fields might not need to be validated for minimum length
+    setMiddleNameIsValid(value === '' || nameRegex.test(value));
+  };
+
+  const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setLastName(value);
+    setLastNameIsValid(nameRegex.test(value));
+  };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -55,6 +77,7 @@ export default function SignUp() {
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setPassword(value);
+
     setPasswordIsValid(passwordRegex.test(value));
   };
 
@@ -74,7 +97,7 @@ export default function SignUp() {
       email: email,
       password: password,
       image: {
-        url: 'https://cdns-images.dzcdn.net/images/artist/300b1c998b93b8a62b050a4b10b14b12/264x264.jpg',
+        url: 'https://lorempokemon.fakerapi.it/pokemon',
         alt: 'You wrote that this is NOT required 😉',
       },
       address: {
@@ -88,7 +111,7 @@ export default function SignUp() {
     }
 
     const { error } = await auth?.signUp(userData)
-
+    console.log(error);
     if (error) {
       toasts?.addToast('⚠️', 'Error Signing-Up', error, 'danger')
     } else {
@@ -113,7 +136,7 @@ export default function SignUp() {
               {/* Full Name -------------------------------------------------- */}
 
               <Row className="mb-4 fw-bold">
-                <FormField controlId="formGridFirstName" label="Name" type="text"
+                {/* <FormField controlId="formGridFirstName" label="Name" type="text"
                   placeholder="First" value={firstName || ''} onChange={(e) => setFirstName(e.target.value)} />
                 <FormField controlId="formGridMiddleName" label="&nbsp;" type="text"
                   placeholder="Middle" value={middleName || ''} onChange={(e) => setMiddleName(e.target.value)} />
@@ -121,7 +144,25 @@ export default function SignUp() {
                 <Form.Group as={Col} controlId="formGridLastName">
                   <Form.Label>&nbsp;</Form.Label>
                   <Form.Control type="text" placeholder="Last" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                </Form.Group>
+                </Form.Group> */}
+
+                <FormField
+                  controlId="formGridFirstName" label="Name" type="text" placeholder="First"
+                  value={firstName || ''} onChange={handleFirstNameChange}
+                  regex={nameRegex} validationMessage="First name must be at least 2 letters." isValid={firstNameIsValid}
+                />
+
+                <FormField
+                  controlId="formGridMiddleName" label="&nbsp;" type="text" placeholder="Middle (optional)"
+                  value={middleName || ''} onChange={handleMiddleNameChange}
+                  regex={nameRegex} validationMessage="Middle name must be at least 2 letters." isValid={middleNameIsValid}
+                />
+
+                <FormField
+                  controlId="formGridLastName" label="&nbsp;" type="text"
+                  placeholder="Last" value={lastName || ''} onChange={handleLastNameChange}
+                  regex={nameRegex} validationMessage="Last name must be at least 2 letters." isValid={lastNameIsValid}
+                />
               </Row>
 
               {/* Phone & Email ---------------------------------------------- */}
@@ -142,7 +183,7 @@ export default function SignUp() {
               {/* Password -------------------------------------------------- */}
 
               <Row className="mb-4 fw-bold">
-                <FormField controlId="formGridPassword" label="Password" type="password" placeholder="Password" value={password || ''} 
+                <FormField controlId="formGridPassword" label="Password" type="password" placeholder="Password" value={password || ''}
                   onChange={handlePasswordChange} regex={passwordRegex} validationMessage="Password must be at least 8 characters long, include 1 capital letter, 1 lowercase letter, at least 1 number, and 1 special character (*_-&^%$#@!)." isValid={passwordIsValid}
                 />
 

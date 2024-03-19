@@ -34,7 +34,7 @@ Abc!123Abc
         - [x] Must be 8 characters long
         - [x] 1 English capital letter 
         - [x] 1 English small letter
-        - [ ] At least 4 numbers
+        - [x] At least 4 numbers
         - [x] Must have one of the following special chars: *_-&^%$#@!
     - [x] Email verification
     - [x] Form fields must show success/failure visualy to user
