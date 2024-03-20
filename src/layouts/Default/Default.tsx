@@ -9,6 +9,7 @@ import Header from '../../components/Header/Header'
 
 // pages
 import Home from '../../pages/Home/Home'
+import About from '../../pages/About/About'
 import Free from '../../pages/Free/Free'
 import User from '../../pages/User/User'
 import Business from '../../pages/Business/Business'
@@ -29,6 +30,7 @@ export default function Default() {
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/free' element={<Free/>}/>
+        <Route path='/about' element={<About/>}/>
         <Route path='/user' element={<User/>}/>
         <Route path='/business' element={<Business/>}/>
         <Route path='/admin' element={<Admin/>}/>

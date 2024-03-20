@@ -74,6 +74,9 @@ export default function Header() {
               <Link to={'/'} className='nav-link'>Home</Link>
             </li>
             <li className="nav-item mx-2">
+              <Link to={'/about'} className='nav-link'>About</Link>
+            </li>
+            <li className="nav-item mx-2">
               <Link to={'/free'} className='nav-link'>Free</Link>
             </li>
             <li className="nav-item mx-2">
