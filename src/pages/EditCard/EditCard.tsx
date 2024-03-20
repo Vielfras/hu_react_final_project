@@ -22,6 +22,8 @@ export default function EditCard() {
   const [card, setCard] = useState<ICard>(initialCardState.card);
   const [isBusy, setIsBusy] = useState<boolean>(false);
 
+
+  // TODO - For some reason the fields aren't being updated properly.
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     if (name === "image") {
