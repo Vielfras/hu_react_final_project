@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import './CardDetails.css'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate} from 'react-router-dom'
 import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import { CiEdit, CiTrash } from 'react-icons/ci'
+import './CardDetails.css'
 
 interface ICard {
   _id: string
@@ -21,6 +21,8 @@ export default function CardDetails() {
   const [card, setCard] = useState<ICard|null>(null)
   const [error, setError] = useState<string|null>(null)
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     const fetchCard = async () => {
       try {
@@ -38,6 +40,10 @@ export default function CardDetails() {
     };
     fetchCard();
   },[cardId])
+
+  const goToEditCard = (card:ICard) => {
+    navigate(`/edit-card/${cardId}`, { state: { card } })
+  }
 
   return (
     <div className='CardDetails Page'>
@@ -69,8 +75,14 @@ export default function CardDetails() {
                     </Card.Text>
                   </Card.Body>
                   <Card.Footer className="text-muted">
-                    <Button variant="primary" size='sm' className='mx-3'><CiEdit className='me-1' size={22} style={{marginTop:'-5px'}}/>Edit Card</Button>
-                    <Button variant="danger" size='sm' className='mx-3'><CiTrash className='me-1' size={22} style={{marginTop:'-5px'}}/>Delete Card</Button>
+                    <Button variant="primary" size='sm' className='mx-3'
+                      onClick={() => goToEditCard(card)}>
+                      <CiEdit className='me-1' size={22} style={{marginTop:'-5px'}}/>Edit Card
+                    </Button>
+                    <Button variant="danger" size='sm' className='mx-3'>
+                      {/* TODO - Add a toast for confirmation of card deletion */}
+                      <CiTrash className='me-1' size={22} style={{marginTop:'-5px'}}/>Delete Card
+                    </Button>
                   </Card.Footer>
                 </Card>
               </Col>

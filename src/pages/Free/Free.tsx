@@ -32,7 +32,7 @@ export default function Free() {
   }
 
   return (
-    <div className='Free Page'>
+    <div className='FreePage'>
       <h3>Free Page</h3>
       <br></br>
       <div>

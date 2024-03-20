@@ -32,7 +32,7 @@ export default function MyOwnCards() {
   }
 
   return (
-    <div className='MyOwnCards Page'>
+    <div className='MyOwnCardsPage'>
       <h3>My Cards</h3>
       <br></br>
 

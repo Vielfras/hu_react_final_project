@@ -5,6 +5,7 @@
 - [Cards](https://documenter.getpostman.com/view/25008645/2s9YXcd5BE)
 - [Token Parsing](https://www.npmjs.com/package/jwt-decode)
 
+
 ## Admin Credentials
 admin@gmail.com
 Abc!123Abc
@@ -13,7 +14,10 @@ Abc!123Abc
 "email": "ellvis@email.com",
 "password": "Abc!123Abc"
 
-
+Email: viel@gmail.com
+password: Aa1234!!
+Name: eo 0k ma
+Phone: 0523606141
 
 # Features
 - [ ] NavBar
@@ -21,16 +25,18 @@ Abc!123Abc
         - [x] Design
         - [ ] Implementation
     - [x] Light/Dark mode
-- [ ] Login Page
+- [x] Login Page
 - [ ] Business Page
 - [ ] Business Card
     - [ ] Can be favorited
-- [ ] Footer
+- [x] Footer
 - [ ] Accesability 
 - [ ] About page
-    - [ ] Must explain how to use the page
+    - [x] Must explain how to use the page
+    - [ ] Link Business part to SignUp link
+    - [ ] Link Users part to free cards
 - [ ] Form validation
-    - [ ] Passworm must be:
+    - [X] Passworm must be:
         - [x] Must be 8 characters long
         - [x] 1 English capital letter 
         - [x] 1 English small letter
@@ -38,8 +44,9 @@ Abc!123Abc
         - [x] Must have one of the following special chars: *_-&^%$#@!
     - [x] Email verification
     - [x] Form fields must show success/failure visualy to user
+    - [ ] Add FormField for password validation - needs to be the same as previous password.
 - [ ] Login/SignUp
-    - [ ] Save access token across visits
+    - [X] Save access token across visits
 - [ ] Pages
     - [ ] Create New Business 
     - [ ] Edit Business Card

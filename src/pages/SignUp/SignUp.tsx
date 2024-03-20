@@ -59,7 +59,6 @@ export default function SignUp() {
   const handleMiddleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setMiddleName(value);
-    // Optional fields might not need to be validated for minimum length
     setMiddleNameIsValid(value === '' || nameRegex.test(value));
   };
 
@@ -110,14 +109,22 @@ export default function SignUp() {
       isBusiness: isBusiness,
     }
 
+    if (!firstNameIsValid || !middleNameIsValid || !lastNameIsValid || !emailIsValid || !passwordIsValid) {
+      toasts?.addToast('⚠️', 'Error Signing-Up', 'Please correct invalid fields.' ,'danger')
+      setIsBusy(false)
+      return;
+    }
+
     const { error } = await auth?.signUp(userData)
     console.log(error);
+
     if (error) {
       toasts?.addToast('⚠️', 'Error Signing-Up', error, 'danger')
     } else {
       toasts?.addToast('👍🏼', 'Successfully Signed-Up', `Please sign in with your credentials.`, 'success')
       navigate('/signin')
     }
+
     setIsBusy(false)
   }
 
@@ -136,16 +143,6 @@ export default function SignUp() {
               {/* Full Name -------------------------------------------------- */}
 
               <Row className="mb-4 fw-bold">
-                {/* <FormField controlId="formGridFirstName" label="Name" type="text"
-                  placeholder="First" value={firstName || ''} onChange={(e) => setFirstName(e.target.value)} />
-                <FormField controlId="formGridMiddleName" label="&nbsp;" type="text"
-                  placeholder="Middle" value={middleName || ''} onChange={(e) => setMiddleName(e.target.value)} />
-
-                <Form.Group as={Col} controlId="formGridLastName">
-                  <Form.Label>&nbsp;</Form.Label>
-                  <Form.Control type="text" placeholder="Last" value={lastName} onChange={(e) => setLastName(e.target.value)} />
-                </Form.Group> */}
-
                 <FormField
                   controlId="formGridFirstName" label="Name" type="text" placeholder="First"
                   value={firstName || ''} onChange={handleFirstNameChange}
@@ -187,10 +184,11 @@ export default function SignUp() {
                   onChange={handlePasswordChange} regex={passwordRegex} validationMessage="Password must be at least 8 characters long, include 1 capital letter, 1 lowercase letter, at least 1 number, and 1 special character (*_-&^%$#@!)." isValid={passwordIsValid}
                 />
 
-                <Form.Group as={Col} controlId="formGridPasswordVerification">
+                {/* TODO - Add password validation - needs to be the same as previous field */}
+                {/* <Form.Group as={Col} controlId="formGridPasswordVerification">
                   <Form.Label>&nbsp;</Form.Label>
                   <Form.Control type="password" placeholder="Repeat Password" value={passwordVerification} onChange={(e) => setPasswordVerification(e.target.value)} />
-                </Form.Group>
+                </Form.Group> */}
               </Row>
 
               <Row className="m-5 fw-bold border-bottom"></Row>

@@ -28,7 +28,7 @@ export default function SignIn() {
       toasts?.addToast('⚠️','Error Signing-In',error,'danger')
     } else {
       toasts?.addToast('👍🏼','Successfully Signed-In',`Welcome !`,'success')  // TODO: add the user's first name with toast
-      navigate('/')
+      navigate('/business')
     }
     setIsBusy(false)
   }
@@ -41,20 +41,16 @@ export default function SignIn() {
       <form onSubmit={handleSubmit}>
 
         <input
-          type='email'
-          value={email}
-          onChange={(e)=>setEmail(e.target.value)}
-          placeholder='Enter your email'
+          type='email'value={email} 
+          onChange={(e)=>setEmail(e.target.value)} placeholder='Enter your email'
           required
         />
 
         <br></br><br></br>
 
         <input
-          type='password'
-          value={password}
+          type='password' value={password} placeholder='Enter your password'
           onChange={(e)=>setPassword(e.target.value)}
-          placeholder='Enter your password'
           required
         />
 
@@ -64,12 +60,8 @@ export default function SignIn() {
           {
           (isBusy) &&
             <Spinner
-            className='me-2'
-            as="span"
-            animation="border"
-            size="sm"
-            role="status"
-            aria-hidden="true"
+            className='me-2' as="span" animation="border"
+            size="sm" role="status" aria-hidden="true"
             />
           }
           Sign In
