@@ -255,9 +255,6 @@ export default function SignUp() {
                 </Col>
                 <Col></Col>
               </Row>
-
-              {/* ----------------------------------------------------------- */}
-
             </Form>
           </Col>
           <Col></Col>

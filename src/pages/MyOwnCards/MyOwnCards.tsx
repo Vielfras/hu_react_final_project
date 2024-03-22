@@ -25,6 +25,8 @@ export default function MyOwnCards() {
       }
     }
     getMyCards();
+
+    console.log("My Cards:", cards);
   }, [])
 
   const goToCardDetails = (cardId: string) => {
