@@ -9,10 +9,11 @@ interface AuthContextType {
   signOut: () => Promise<void>
 }
 
+
 export const AuthContext = createContext<AuthContextType|undefined>(undefined);
 
-export default function AuthProvider({children}:{children:React.ReactNode}) {
 
+export default function AuthProvider({children}:{children:React.ReactNode}) {
   const [userDetails,setUserDetails] = useState<IUserDetails|undefined>(undefined)
 
   useEffect(()=>{
@@ -39,6 +40,7 @@ export default function AuthProvider({children}:{children:React.ReactNode}) {
 
     return { error:null }
   }
+
 
   const signUp = async (userData:IUserSignup):Promise<{error:string|undefined}> => {
     const { error } = await doSignUp(userData)

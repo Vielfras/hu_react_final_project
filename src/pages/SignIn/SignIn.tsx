@@ -7,32 +7,41 @@ import { Button, Spinner } from 'react-bootstrap';
 
 export default function SignIn() {
 
-  const [email,setEmail] = useState<string>('');
-  const [password,setPassword] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const [isBusy,setIsBusy] = useState<boolean>(false)
+  const [isBusy, setIsBusy] = useState<boolean>(false)
 
   const auth = useContext(AuthContext);
   const toasts = useContext(ToastsContext)
-  
+
   const navigate = useNavigate();
 
-  const handleSubmit = async (e:React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsBusy(true)
 
-    if (!auth) { setIsBusy(false); return }
-    const { error } = await auth?.signIn(email,password)
+    if (!auth) {
+      setIsBusy(false);
+      return
+    }
+
+    const { error } = await auth?.signIn(email, password)
 
     if (error) {
-      toasts?.addToast('⚠️','Error Signing-In',error,'danger')
-    } else {
-      toasts?.addToast('👍🏼','Successfully Signed-In',`Welcome !`,'success')  // TODO: add the user's first name with toast
-      navigate('/business')
+      toasts?.addToast('⚠️', 'Error Signing-In', error, 'danger')
+    } 
+    else {
+      toasts?.addToast('👍🏼', 'Successfully Signed-In', `Welcome ${auth.userDetails?.name}!`, 'success');
+
+      const redirectTo = auth.userDetails?.isAdmin ? '/admin' : (auth.userDetails?.isBusiness ? '/business' : '/user');
+
+      navigate(redirectTo);
     }
+
     setIsBusy(false)
   }
-  
+
   return (
     <div className='SignIn Page'>
       <h3>Sign-In Page</h3>
@@ -41,8 +50,8 @@ export default function SignIn() {
       <form onSubmit={handleSubmit}>
 
         <input
-          type='email'value={email} 
-          onChange={(e)=>setEmail(e.target.value)} placeholder='Enter your email'
+          type='email' value={email}
+          onChange={(e) => setEmail(e.target.value)} placeholder='Enter your email'
           required
         />
 
@@ -50,7 +59,7 @@ export default function SignIn() {
 
         <input
           type='password' value={password} placeholder='Enter your password'
-          onChange={(e)=>setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           required
         />
 
@@ -58,10 +67,10 @@ export default function SignIn() {
 
         <Button type='submit' variant='primary' size='sm' disabled={isBusy}>
           {
-          (isBusy) &&
+            (isBusy) &&
             <Spinner
-            className='me-2' as="span" animation="border"
-            size="sm" role="status" aria-hidden="true"
+              className='me-2' as="span" animation="border"
+              size="sm" role="status" aria-hidden="true"
             />
           }
           Sign In
