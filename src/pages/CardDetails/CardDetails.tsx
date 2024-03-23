@@ -50,7 +50,7 @@ export default function CardDetails() {
 
       {card && (
         <Card className="mb-4">
-          <Card.Header>{card.title || "No Title"}</Card.Header>
+          <Card.Header>{card.title ? `${card.title} | Liked ${card.likes.length} times` : "N/A"}</Card.Header>
           <Card.Body className="text-center">
             {card.image.url ? (
               <Card.Img variant="top" src={card.image.url} style={{ maxHeight: '500px', maxWidth: '500px', objectFit: 'cover' }} />
@@ -59,7 +59,7 @@ export default function CardDetails() {
                 <p>No image available</p>
               </div>
             )}
-            <Card.Title className="mt-3">{card.subtitle || "No Subtitle"}</Card.Title>
+            <Card.Title className="mt-3">{card.subtitle || "N/A"}</Card.Title>
             <Card.Text>{card.description || "No description provided."}</Card.Text>
           </Card.Body>
           <Card.Footer>
