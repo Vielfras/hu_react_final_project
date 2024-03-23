@@ -1,22 +1,18 @@
-import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { ICard } from '../../interfaces/CardInterfaces';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { CiEdit, CiTrash } from 'react-icons/ci';
+import { FaPhone, FaEnvelope, FaGlobe, FaBuilding, FaHome, FaMapPin, FaMapMarkerAlt, FaCity } from 'react-icons/fa';
 
-import { ICard } from '../../interfaces/CardInterfaces'
 
-import { CiEdit, CiTrash } from 'react-icons/ci'
-import { Button, Card, Col, Container, Row } from 'react-bootstrap'
-
-import './CardDetails.css'
-
+import './CardDetails.css';
 
 export default function CardDetails() {
-
-  const { cardId } = useParams()
-
-  const [card, setCard] = useState<ICard | null>(null)
-  const [error, setError] = useState<string | null>(null)
-
-  const navigate = useNavigate()
+  const { cardId } = useParams();
+  const [card, setCard] = useState<ICard | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCard = async () => {
@@ -25,75 +21,80 @@ export default function CardDetails() {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
         });
-        const data = await response.json()
-        if (!response.ok) throw new Error(data)
-        setCard(data)
+        const data = await response.json();
+        if (!response.ok) throw new Error(data);
+        setCard(data);
       } catch (err) {
-        const errMessage = (err as Error).message
-        setError(errMessage)
+        const errMessage = (err as Error).message;
+        setError(errMessage);
       }
     };
     fetchCard();
-  }, [cardId])
+  }, [cardId]);
 
-  const goToEditCard = (card: ICard) => {
-    navigate(`/edit-card/${cardId}`, { state: { card } })
-  }
+  const goToEditCard = () => {
+    navigate(`/edit-card/${cardId}`, { state: { card } });
+  };
 
   return (
-    <div className='CardDetails Page'>
+    <Container className='mt-5'>
       <h3>Card Details</h3>
-      <br></br>
+      <br />
 
-      <div>
-        {
-          (error) &&
-          <>
-            <h5>Error getting card '{cardId}' :</h5>
-            <p style={{ color: 'red' }}>{error}</p>
-          </>
-        }
-      </div>
-      {
-        (card) ?
-          <Container>
+      {error && (
+        <>
+          <h5>Error getting card '{cardId}':</h5>
+          <p className="text-danger">{error}</p>
+        </>
+      )}
 
-                <Card className="text-center">
-                  <Card.Header style={{ fontWeight: '500' }}>{card.title}</Card.Header>
-                  <Card.Body>
-                    <Card.Img variant="top" src={card.image.url} style={{ maxHeight: '500px', maxWidth: '500px', objectFit: 'cover' }} />
-                    <Card.Title className="mt-4">{card.subtitle}</Card.Title>
-
-                  </Card.Body>
-                  <Card.Footer className="text-muted">
-                    <Button variant="primary" size='sm' className='mx-3'
-                      onClick={() => goToEditCard(card)}>
-                      <CiEdit className='me-1' size={22} style={{ marginTop: '-5px' }} />Edit Card
-                    </Button>
-                    <Button variant="danger" size='sm' className='mx-3'>
-                      {/* TODO - Add a toast for confirmation of card deletion */}
-                      <CiTrash className='me-1' size={22} style={{ marginTop: '-5px' }} />Delete Card
-                    </Button>
-                  </Card.Footer>
-                </Card>
-            
-              <div className='mt-4 py-5 border rounded'>
-                <p>{card.description}</p>
-
-                <hr></hr>
-                <h4>Contact Details</h4>
-                <p>{card.phone}</p>
-                <p>{card.email}</p>
-                <p>{card.web}</p>
-                <p>BizNum: {card.bizNumber}</p>
-                <p>Likes: {card.likes.length}</p>
-                <p>Created on: {card.createdAt}</p>
+      {card && (
+        <Card className="mb-4">
+          <Card.Header>{card.title || "No Title"}</Card.Header>
+          <Card.Body className="text-center">
+            {card.image.url ? (
+              <Card.Img variant="top" src={card.image.url} style={{ maxHeight: '500px', maxWidth: '500px', objectFit: 'cover' }} />
+            ) : (
+              <div style={{ minHeight: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <p>No image available</p>
               </div>
-          </Container>
-          :
-          null
-      }
+            )}
+            <Card.Title className="mt-3">{card.subtitle || "No Subtitle"}</Card.Title>
+            <Card.Text>{card.description || "No description provided."}</Card.Text>
+          </Card.Body>
+          <Card.Footer>
+            <Button variant="outline-primary" size='sm' onClick={goToEditCard}>
+              <CiEdit /> Edit Card
+            </Button>
+            <Button variant="outline-danger" size='sm' className='ms-5'>
+              <CiTrash /> Delete Card
+            </Button>
+          </Card.Footer>
+        </Card>
+      )}
 
-    </div>
-  )
+      {card && (
+        <Container className='mb-4 py-4 border rounded shadow-sm'>
+          <Row>
+            <Col md={6}>
+              <h4 className="mb-3">Contact Details <FaBuilding /></h4>
+              <p><FaPhone /> Phone: {card.phone || "N/A"}</p>
+              <p><FaEnvelope /> Email: {card.email || "N/A"}</p>
+              <p><FaGlobe /> Website: {card.web || "N/A"}</p>
+              <p><FaMapMarkerAlt /> BizNum: {card.bizNumber || "N/A"}</p>
+            </Col>
+            <Col md={6}>
+              <h4 className="mb-3">Location Details <FaHome /></h4>
+              <p><FaMapPin /> State: {card.address.state || "N/A"}</p>
+              <p><FaMapMarkerAlt /> Country: {card.address.country || "N/A"}</p>
+              <p><FaCity /> City: {card.address.city || "N/A"}</p>
+              <p><FaMapPin /> Street: {card.address.street || "N/A"}</p>
+              <p><FaHome /> House Num: {card.address.houseNumber || "N/A"}</p>
+              <p><FaMapMarkerAlt /> Zip: {card.address.zip || "N/A"}</p>
+            </Col>
+          </Row>
+        </Container>
+      )}
+    </Container>
+  );
 }
