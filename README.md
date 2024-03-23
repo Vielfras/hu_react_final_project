@@ -14,10 +14,12 @@ Abc!123Abc
 "email": "ellvis@email.com",
 "password": "Abc!123Abc"
 
+"email": vielf@email.com
+"password": Aa1234!!
+
+## User Credentials
 Email: viel@gmail.com
 password: Aa1234!!
-Name: eo 0k ma
-Phone: 0523606141
 
 # Features
 - [ ] NavBar
@@ -48,7 +50,7 @@ Phone: 0523606141
 - [ ] Login/SignUp
     - [X] Save access token across visits
 - [ ] Pages
-    - [ ] Create New Business 
+    - [ ] Create New Business Card
         - [X] Form To create card
         - [ ] API call finalisation
         - [ ] Form validation

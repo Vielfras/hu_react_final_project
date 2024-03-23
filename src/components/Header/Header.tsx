@@ -82,20 +82,18 @@ export default function Header() {
             <li className="nav-item mx-2">
               <Link to={'/user'} className='nav-link'>User</Link>
             </li>
-
-            {
-              (auth?.userDetails) &&
-                <li className="nav-item mx-2">
-                  <Link to={'/mycards'} className='nav-link'>My Cards</Link>
-                </li>
-            }
-
             <li className="nav-item mx-2">
               <Link to={'/business'} className='nav-link'>Biz</Link>
             </li>
             <li className="nav-item mx-2">
-              <Link to={'/admin'} className='nav-link'>Admin</Link>
             </li>
+
+            {
+              (auth?.userDetails?.isAdmin) &&
+              <li className="nav-item mx-2">
+                  <Link to={'/admin'} className='nav-link'>Admin</Link>
+                </li>
+            }
 
             {/* ---- Light\Dark Mode --------------------------------------------------------------------------------------------------------------------------- */}
             <li className="nav-item mx-3 theme-icon my-auto">
