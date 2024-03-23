@@ -49,7 +49,13 @@ Phone: 0523606141
     - [X] Save access token across visits
 - [ ] Pages
     - [ ] Create New Business 
+        - [x] Form To create card
+        - [ ] API call finalisation
+        - [ ] Form validation
     - [ ] Edit Business Card
+        - [x] Form To edit card
+        - [ ] API call finalisation
+        - [ ] Form validation
     - [ ] My Created Business Cards 
     - [ ] My Liked Business Cards 
     - [ ] Favorite Cards
