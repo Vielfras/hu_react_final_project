@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Button, Container, Card, Form, Spinner, Row } from 'react-bootstrap';
+import { Button, Container} from 'react-bootstrap';
 
 import "./Business.css"
 import SignInOrUpRequired from '../../components/SignInOrUpRequired/SignInOrUpRequired';
@@ -19,12 +19,12 @@ export default function Business() {
 
         {
           (auth?.userDetails) && (auth.userDetails.isBusiness || auth.userDetails.isAdmin) ?
-            <div>
-              <p>Welcome {auth.userDetails.name.first} 😊</p>
-              <Button className='m-5' onClick={() => navigate('/create-card')} variant='primary'>
-                Create Card
-              </Button>
-            </div>
+          <div>
+            <p>Welcome {auth.userDetails.name.first} 😊</p>
+            <Button className='m-5' onClick={() => navigate('/create-card')} variant='primary'>
+              Create Card
+            </Button>
+          </div>
             :
             <SignInOrUpRequired />
         }
