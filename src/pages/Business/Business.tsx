@@ -98,65 +98,11 @@ export default function Business() {
               </Card>
             </Container>
         }
-
       </div>
-      <Form onSubmit={handleSubmit}>
-        <Container className="BusinessPage">
-          <h3>Create New Business Card</h3>
-          <Form onSubmit={handleSubmit}>
-            {/* Card Details fields */}
 
-            <Row className="mb-4  fw-bold">
-              <FormField controlId="formTitle" label="Title" type="text" placeholder="Card title" value={cardData.title} onChange={(e) => handleInputChange('title', e.target.value)}
-              />
-              <FormField controlId="formSubtitle" label="Subtitle" type="text" placeholder="Card subtitle" value={cardData.subtitle} onChange={(e) => handleInputChange('subtitle', e.target.value)}
-              />
-            </Row>
-
-            <Row className="mb-4  fw-bold">
-              <FormField controlId="formDescription" label="Description" as="textarea" placeholder="Description of services" value={cardData.description} onChange={(e) => handleInputChange('description', e.target.value)}
-              />
-            </Row>
-
-            {/*Contanct details fields */}
-            <Row className="mb-4  fw-bold">
-              <FormField controlId="formPhone" label="Phone" type="text" placeholder="Phone number" value={cardData.phone} onChange={(e) => handleInputChange('phone', e.target.value)}
-              />
-              <FormField controlId="formEmail" label="Email" type="email" placeholder="Email address" value={cardData.email} onChange={(e) => handleInputChange('email', e.target.value)}
-              />
-              <FormField controlId="formWeb" label="Web" type="text" placeholder="Website URL" value={cardData.web} onChange={(e) => handleInputChange('web', e.target.value)}
-              />
-            </Row>
-
-            {/* Visual Display fields */}
-            <FormField controlId="formImageUrl" label="Image URL" type="text" placeholder="Image URL" value={cardData.image.url} onChange={(e) => handleInputChange('image.url', e.target.value)}
-            />
-            <FormField controlId="formImageAlt" label="Image Alt Text" type="text" placeholder="Image description" value={cardData.image.alt} onChange={(e) => handleInputChange('image.alt', e.target.value)}
-            />
-
-            {/* Address fields */}
-            <FormField controlId="formCountry" label="Country" type="text" placeholder="Country" value={cardData.address.country} onChange={(e) => handleInputChange('address.country', e.target.value)}
-            />
-            <FormField controlId="formCity" label="City" type="text" placeholder="City" value={cardData.address.city} onChange={(e) => handleInputChange('address.city', e.target.value)}
-            />
-            <FormField controlId="formStreet" label="Street" type="text" placeholder="Street" value={cardData.address.street} onChange={(e) => handleInputChange('address.street', e.target.value)}
-            />
-            <FormField controlId="formHouseNumber" label="House Number" type="text" placeholder="House number" value={cardData.address.houseNumber} onChange={(e) => handleInputChange('address.houseNumber', e.target.value)}
-            />
-            <FormField controlId="formZip" label="ZIP" type="text" placeholder="ZIP code" value={cardData.address.zip} onChange={(e) => handleInputChange('address.zip', e.target.value)}
-            />
-
-            {/* Submit button */}
-            <Button className='m-5' variant="primary" type="submit" disabled={isSubmitting}>
-              {isSubmitting ? (
-                <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-              ) : (
-                'Create Card'
-              )}
-            </Button>
-          </Form>
-        </Container>
-      </Form>
+      <Button className='m-5' onClick={() => navigate('/create-card')} variant='primary'>
+        Create Card
+      </Button>
     </Container >
   );
 }
