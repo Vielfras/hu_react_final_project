@@ -22,38 +22,38 @@ Phone: 0523606141
 # Features
 - [ ] NavBar
     - [ ] SearchBar
-        - [x] Design
+        - [X] Design
         - [ ] Implementation
-    - [x] Light/Dark mode
-- [x] Login Page
+    - [X] Light/Dark mode
+- [X] Login Page
 - [ ] Business Page
 - [ ] Business Card
     - [ ] Can be favorited
-- [x] Footer
+- [X] Footer
 - [ ] Accesability 
 - [ ] About page
-    - [x] Must explain how to use the page
+    - [X] Must explain how to use the page
     - [ ] Link Business part to SignUp link
     - [ ] Link Users part to free cards
 - [ ] Form validation
     - [X] Passworm must be:
-        - [x] Must be 8 characters long
-        - [x] 1 English capital letter 
-        - [x] 1 English small letter
-        - [x] At least 4 numbers
-        - [x] Must have one of the following special chars: *_-&^%$#@!
-    - [x] Email verification
-    - [x] Form fields must show success/failure visualy to user
+        - [X] Must be 8 characters long
+        - [X] 1 English capital letter 
+        - [X] 1 English small letter
+        - [X] At least 4 numbers
+        - [X] Must have one of the following special chars: *_-&^%$#@!
+    - [X] Email verification
+    - [X] Form fields must show success/failure visualy to user
     - [ ] Add FormField for password validation - needs to be the same as previous password.
 - [ ] Login/SignUp
     - [X] Save access token across visits
 - [ ] Pages
     - [ ] Create New Business 
-        - [x] Form To create card
+        - [X] Form To create card
         - [ ] API call finalisation
         - [ ] Form validation
     - [ ] Edit Business Card
-        - [x] Form To edit card
+        - [X] Form To edit card
         - [ ] API call finalisation
         - [ ] Form validation
     - [ ] My Created Business Cards 

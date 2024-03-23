@@ -11,8 +11,6 @@ interface ToastType {
   headerBackground?: BootstrapColorNamesType
 }
 
-//bg-success-subtle
-
 interface ToastsContextType {
   addToast: (headerIcon:string,headerText:string,message:string,headerBackground?:BootstrapColorNamesType) => void
 }
