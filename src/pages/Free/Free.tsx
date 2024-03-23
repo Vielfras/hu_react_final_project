@@ -13,7 +13,7 @@ import { AiOutlineLike } from 'react-icons/ai';
 export default function Free() {
   const [cards, setCards] = useState<ICard[] | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string>('YourUserIdHere'); // Placeholder for user ID
+  // const [userId, setUserId] = useState<string>('YourUserIdHere'); // Placeholder for user ID
 
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
@@ -36,9 +36,11 @@ export default function Free() {
 
   const toggleLike = async (cardId: string) => {
     const result = await doToggleCardLike(cardId);
-    // TODO - add handling of the like toggling to be displayed.
     // TODO - This should be added after refactoring the Card into its own component.
+    // TODO - Number of likes need to be updated after toggle 
   };
+
+  const userId = auth?.userDetails?._id || '';
 
   return (
     <div className='FreePage'>
@@ -62,12 +64,12 @@ export default function Free() {
                     </Card.Text>
                     <Button variant="primary" size='sm' onClick={() => goToCardDetails(card._id)}>Go to card</Button>
                   </Card.Body>
-                  <Card.Footer 
-                    className={`text-muted cardFooter ${card.likes.includes(userId) ? 'bg' : ''}`}
-                    onClick={() => toggleLike(card._id)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    {card.likes.length} <AiOutlineLike size={18} style={{marginTop:'-5px'}}/>
+                  <Card.Footer className="text-muted cardFooter"
+                    onClick={() => toggleLike(card._id)}>
+                    {card.likes.length}
+                    <span className={`${card.likes.includes(userId) ? 'text-primary' : ''}`}>
+                      <AiOutlineLike size={18} style={{ marginTop: '-5px', verticalAlign: 'middle' }} />
+                    </span>
                   </Card.Footer>
                 </Card>
               </Col>
