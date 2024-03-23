@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { ToastsContext } from '../../context/ToastsContext';
+import { getToken } from "../../services/UserService";
 import FormField from '../../components/FormField/FormField';
 
 interface ICard {
@@ -36,7 +37,7 @@ export default function EditCard() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const authToken = localStorage.getItem('x-auth-token');
+    const authToken = await getToken();
 
     const updateUrl = `https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards/${card._id}`;
 

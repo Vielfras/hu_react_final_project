@@ -10,67 +10,8 @@ import "./Business.css"
 
 export default function Business() {
   const auth = useContext(AuthContext);
-  const toasts = useContext(ToastsContext);
   const navigate = useNavigate();
 
-  const [cardData, setCardData] = useState({
-    title: '',
-    subtitle: '',
-    description: '',
-    phone: '',
-    email: '',
-    web: '',
-    image: { url: '', alt: '' },
-    address: { state: '', country: '', city: '', street: '', houseNumber: '', zip: '' },
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleInputChange = (field, value) => {
-    if (field.includes('.')) {
-      const [key, subKey] = field.split('.');
-      setCardData((prev) => ({
-        ...prev,
-        [key]: { ...prev[key], [subKey]: value },
-      }));
-    } else {
-      setCardData((prev) => ({ ...prev, [field]: value }));
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    const token = auth?.token; // TODO - Should I get this from local storage?
-
-    try {
-      const response = await fetch('https://monkfish-app-z9uza.ondigitalocean.app/bcard2/cards', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-auth-token': token
-        },
-        body: JSON.stringify(cardData)
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to create card');
-      }
-
-      const data = await response.json();
-      toasts?.addToast('Success', 'Card Created', `Your business card has been successfully created.`, 'success');
-      navigate('/business-cards'); // Navigate to where you list the cards or show the newly created card
-    } catch (error) {
-      console.error('Card creation failed:', error);
-      toasts?.addToast('Error', 'Creation Failed', error.message, 'danger');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  // Form rendering omitted for brevity, should include inputs for all fields in formData
   return (
     <Container className='BusinessPage'>
       <div>
