@@ -10,10 +10,10 @@ import { AiOutlineLike } from 'react-icons/ai';
 
 export default function MyOwnCards() {
 
-  const [cards, setCards] = useState<ICard[] | undefined>(undefined)
-  const [error, setError] = useState<string | undefined>(undefined)
+  const [cards, setCards] = useState<ICard[] | undefined>(undefined);
+  const [error, setError] = useState<string | undefined>(undefined);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getMyCards = async () => {
@@ -27,11 +27,11 @@ export default function MyOwnCards() {
     getMyCards();
 
     console.log("My Cards:", cards);
-  }, [])
+  }, []);
 
   const goToCardDetails = (cardId: string) => {
     navigate(`/card-details/${cardId}`, { state: { cardId: cardId } })
-  }
+  };
 
   return (
     <div className='MyOwnCardsPage'>

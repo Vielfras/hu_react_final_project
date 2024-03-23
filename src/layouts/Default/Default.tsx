@@ -22,6 +22,7 @@ import SignUp from '../../pages/SignUp/SignUp'
 import MyOwnCards from '../../pages/MyOwnCards/MyOwnCards'
 import EditCard from '../../pages/EditCard/EditCard'
 import CreateCard from '../../pages/CreateCard/CreateCard'
+import LikedCards from '../../pages/LikedCards/LikedCards'
 
 export default function Default() {
   return (
@@ -40,6 +41,7 @@ export default function Default() {
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/profile' element={<UserProfile/>}/>
         <Route path='/mycards' element={<MyOwnCards/>}/>
+        <Route path='/liked-cards' element={<LikedCards/>}/>
         <Route path='/create-card' element={<CreateCard/>}/>
         <Route path='/card-details/:cardId' element={<CardDetails/>}/>
         <Route path='/edit-card/:cardId' element={<EditCard/>}/>

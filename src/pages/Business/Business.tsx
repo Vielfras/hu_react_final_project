@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import { Button, Container } from 'react-bootstrap';
 
 import "./Business.css"

@@ -4,41 +4,72 @@ import { getToken } from "./UserService";
 
 // ---------------------------------------------------------------------------------------------------------
 
-export const doGetAllCards = async (): Promise<{error:string|null,result:ICard[]|null}> => {
+export const doGetAllCards = async (): Promise<{ error: string | null, result: ICard[] | null }> => {
   try {
     const response = await fetch(`${apiBase}/cards`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     });
     const data = await response.json()
-    if (!response.ok) return { error:data, result:null }
-    return { error:null, result:data }
-  } catch (err) {
+    if (!response.ok) return { error: data, result: null }
+    return { error: null, result: data }
+  } 
+  catch (err) {
     const errMessage = (err as Error).message
-    return { error:errMessage, result:null }
+    return { error: errMessage, result: null }
   }
 }
 
 // ---------------------------------------------------------------------------------------------------------
 
-export const doGetMyCards = async (): Promise<{error:string|undefined,result:ICard[]|undefined}> => {
+export const doGetMyCards = async (): Promise<{ error: string | undefined, result: ICard[] | undefined }> => {
   try {
     const token = await getToken()
-    if (!token) return { error:'No token found', result:undefined }
+    if (!token) return { error: 'No token found', result: undefined }
     const response = await fetch(`${apiBase}/cards/my-cards`, {
       method: 'GET',
-      headers: { 
+      headers: {
         'Content-Type': 'application/json',
         'x-auth-token': token,
       },
     });
     const data = await response.json()
-    if (!response.ok) return { error:data, result:undefined }
-    return { error:undefined, result:data }
-  } catch (err) {
+    if (!response.ok) return { error: data, result: undefined }
+    return { error: undefined, result: data }
+  } 
+  catch (err) {
     const errMessage = (err as Error).message
-    return { error:errMessage, result:undefined }
+    return { error: errMessage, result: undefined }
   }
 }
 
 // ---------------------------------------------------------------------------------------------------------
+
+export const doToggleCardLike = async (cardId: string): Promise<{ error: string | null, result: any | null }> => {
+  try {
+    const token = await getToken();
+    if (!token) {
+      return { error: 'Authentication required. No token found.', result: null };
+    }
+
+    const response = await fetch(`${apiBase}/cards/${cardId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': token,
+      },
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { error: data.message || 'An error occurred while toggling the like status.', result: null };
+    }
+
+    return { error: null, result: data };
+  } 
+  catch (err) {
+    const errMessage = (err as Error).message;
+    return { error: errMessage, result: null };
+  }
+};
