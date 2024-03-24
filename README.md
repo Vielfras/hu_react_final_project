@@ -23,9 +23,9 @@ password: Aa1234!!
 
 # Features
 - [ ] Header
-    - [ ] SearchBar
+    - [X] SearchBar
         - [X] Design
-        - [ ] Implementation
+        - [X] Implementation
     - [X] Light/Dark mode
 - [X] Login Page
 - [X] Business Card
@@ -57,6 +57,7 @@ password: Aa1234!!
         - [ ] Form validation
     - [X] My Created Business Cards 
     - [X] My Liked Business Cards 
+    - [ ] Search Page
 - [ ] Accesability 
 
 # Requirements:

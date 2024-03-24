@@ -23,6 +23,7 @@ import MyOwnCards from '../../pages/MyOwnCards/MyOwnCards'
 import EditCard from '../../pages/EditCard/EditCard'
 import CreateCard from '../../pages/CreateCard/CreateCard'
 import LikedCards from '../../pages/LikedCards/LikedCards'
+import SearchResults from '../../pages/SearchResults/SearchResults'
 
 export default function Default() {
   return (
@@ -34,6 +35,7 @@ export default function Default() {
         <Route path='/' element={<Home/>}/>
         <Route path='/free' element={<Free/>}/>
         <Route path='/about' element={<About/>}/>
+        <Route path='/search' element={<SearchResults/>}/>
         <Route path='/user' element={<User/>}/>
         <Route path='/business' element={<Business/>}/>
         <Route path='/admin' element={<Admin/>}/>
