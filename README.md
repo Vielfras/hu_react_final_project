@@ -34,8 +34,6 @@ password: Aa1234!!
 - [X] Footer
 - [ ] About page
     - [X] Must explain how to use the page
-    - [ ] Link Business part to SignUp link
-    - [ ] Link Users part to free cards
 - [ ] Form validation
     - [X] Passworm must be:
         - [X] Must be 8 characters long
@@ -55,9 +53,9 @@ password: Aa1234!!
         - [ ] Form validation
     - [ ] Edit Business Card
         - [X] Form To edit card
-        - [ ] API call finalisation
+        - [X] API call finalisation
         - [ ] Form validation
-    - [ ] My Created Business Cards 
+    - [X] My Created Business Cards 
     - [X] My Liked Business Cards 
 - [ ] Accesability 
 
