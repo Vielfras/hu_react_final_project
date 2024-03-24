@@ -7,20 +7,6 @@ import { Button, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
 import FormField from '../../components/FormField/FormField';
 
 export default function SignUp() {
-  // const [firstName, setFirstName] = useState<string>('Arik')
-  // const [lastName, setLastName] = useState<string>('Lavi')
-  // const [phone,setPhone] = useState<string>('0525807777')
-  // const [email, setEmail] = useState<string>('arikla@gmail.com');
-  // const [password, setPassword] = useState<string>('Arik12345!');
-  // const [passwordVerification, setPasswordVerification] = useState<string>('Arik12345!');
-  // const [country, setCountry] = useState<string>('Israel');
-  // const [city, setCity] = useState<string>('Haifa');
-  // const [street, setStreet] = useState<string>('Palyam');
-  // const [houseNumber, setHouseNumber] = useState<string>('12');
-  // const [zipCode, setZipCode] = useState<string>('21800');
-  // const [isBusiness, setIsBusiness] = useState<boolean>(true);
-  // const [isBusy, setIsBusy] = useState<boolean>(false);
-
   const [firstName, setFirstName] = useState<string>()
   const [middleName, setMiddleName] = useState<string>()
   const [lastName, setLastName] = useState<string>()
@@ -40,10 +26,11 @@ export default function SignUp() {
   const toasts = useContext(ToastsContext)
   const navigate = useNavigate();
 
-
+  const phoneRegex = /0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/;
   const nameRegex = /^[A-Za-z]{2,}$/;
   const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d.*\d.*\d.*\d)(?=.*[_*&^%$#@!-])[A-Za-z\d_*&^%$#@!-]{8,}$/;
+  const [phoneIsValid, setPhoneIsValid] = useState<boolean>(true);
   const [firstNameIsValid, setFirstNameIsValid] = useState<boolean>(true);
   const [middleNameIsValid, setMiddleNameIsValid] = useState<boolean>(true);
   const [lastNameIsValid, setLastNameIsValid] = useState<boolean>(true);
@@ -66,6 +53,12 @@ export default function SignUp() {
     const value = e.target.value;
     setLastName(value);
     setLastNameIsValid(nameRegex.test(value));
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setPhone(value);
+    setPhoneIsValid(phoneRegex.test(value));
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,7 +103,7 @@ export default function SignUp() {
     }
 
     if (!firstNameIsValid || !middleNameIsValid || !lastNameIsValid || !emailIsValid || !passwordIsValid) {
-      toasts?.addToast('⚠️', 'Error Signing-Up', 'Please correct invalid fields.' ,'danger')
+      toasts?.addToast('⚠️', 'Error Signing-Up', 'Please correct invalid fields.', 'danger')
       setIsBusy(false)
       return;
     }
@@ -165,15 +158,13 @@ export default function SignUp() {
               {/* Phone & Email ---------------------------------------------- */}
 
               <Row className="mb-4 fw-bold">
-                <Form.Group as={Col} controlId="formGridPhone">
-                  <Form.Label>Phone</Form.Label>
-                  <Form.Control type="phone" placeholder="Phone number" value={phone} onChange={(e) => setPhone(e.target.value)} />
-                </Form.Group>
+                <FormField controlId="formGridPhone" label="Phone" type="text" placeholder="Phone number" value={phone || ''} 
+                  onChange={handlePhoneChange} regex={phoneRegex} validationMessage="Please enter a valid phone number." isValid={phoneIsValid}
+                />
 
                 <FormField
                   controlId="formGridEmail" label="Email" type="email" placeholder="Email Address" value={email || ''}
-                  onChange={handleEmailChange}
-                  regex={emailRegex} validationMessage="Please enter a valid email address." isValid={emailIsValid}
+                  onChange={handleEmailChange} regex={emailRegex} validationMessage="Please enter a valid email address." isValid={emailIsValid}
                 />
               </Row>
 
