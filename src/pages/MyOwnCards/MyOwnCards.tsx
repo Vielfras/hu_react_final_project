@@ -50,7 +50,7 @@ export default function MyOwnCards() {
                   <Card className="text-center">
                     <Card.Header style={{ fontWeight: '500' }}>{card.title}</Card.Header>
                     <Card.Body>
-                      <Card.Img variant="top" src={card.image.url} style={{ height: '200px', objectFit: 'cover' }} />
+                    <Card.Img variant="top" src={card.image.url} style={{ minHeight:'200px', minWidth:'200px', maxHeight:'500px', maxWidth:'500px', objectFit: 'cover' }} />
                       <Card.Title>{card.subtitle}</Card.Title>
                       <Card.Text>
                         {card.description}

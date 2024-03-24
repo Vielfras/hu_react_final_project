@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { doGetAllCards } from '../../services/CardsService'; 
+import { doGetAllCards } from '../../services/CardsService';
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, Form, InputGroup, Button } from 'react-bootstrap';
 import "./SearchBar.css";
 
 export default function SearchBar() {
@@ -13,7 +13,7 @@ export default function SearchBar() {
 
   useEffect(() => {
     const fetchSuggestions = async () => {
-      if (query.length > 2) { 
+      if (query.length > 2) {
         const { error, result } = await doGetAllCards();
         if (!error) {
           const filteredSuggestions = result?.filter(card =>
@@ -40,23 +40,37 @@ export default function SearchBar() {
     setShowSuggestions(false);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setShowSuggestions(false);
+
+    if (suggestions.length === 1) {
+      navigate(`/card-details/${suggestions[0]._id}`);
+    } 
+    else {
+      navigate('/search', { state: { query } });
+    }
+
+    setQuery('');
+  };
+
   return (
     <div className="SearchBar col-lg-5 mx-auto w-50">
-      <div className="input-group">
-        <input
-          className="form-control border-end-0 border rounded-3"
-          type="search"
-          id="header-search-input"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-          autoComplete="off"
-        />
-        <span className="input-group-append">
-          <button className="btn btn-outline-secondary bg-white border-bottom-0 border rounded-3" type="button">
+      <Form onSubmit={handleSubmit} className="input-group">
+        <InputGroup>
+          <Form.Control
+            type="search"
+            id="header-search-input"
+            className="form-control border-end-0 border rounded-3"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+            autoComplete="off"
+          />
+          <Button variant="outline-secondary" className="bg-white border-start-0 rounded-3" type="submit">
             <FaMagnifyingGlass />
-          </button>
-        </span>
+          </Button>
+        </InputGroup>
         {showSuggestions && suggestions.length > 0 && (
           <Dropdown.Menu show style={{ cursor: 'pointer', position: 'absolute', left: 0, width: '100%' }}>
             {suggestions.map((suggestion) => (
@@ -66,7 +80,7 @@ export default function SearchBar() {
             ))}
           </Dropdown.Menu>
         )}
-      </div>
+      </Form>
     </div>
   );
 }

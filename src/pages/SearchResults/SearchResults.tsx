@@ -40,7 +40,7 @@ export default function SearchResults() {
   };
 
   return (
-    <div className='SearchResultsPage'>
+    <div className='SearchResults'>
       <h3>Search Results for "{query}"</h3>
       <br />
       {loading ? (
@@ -52,20 +52,20 @@ export default function SearchResults() {
       ) : error ? (
         <p>Error: {error}</p>
       ) : cards.length > 0 ? (
-        <Row xs={1} md={2} lg={3} xl={4} className="g-4">
+        <Row xs={1} md={2} lg={3} xl={4} className="g-5">
           {cards.map((card) => (
-            <Col key={card._id}>
-              <Card>
-                <Card.Header>{card.title}</Card.Header>
+              <Col key={card._id}>
+              <Card className="text-center">
+                <Card.Header style={{ fontWeight: '500' }}>{card.title}</Card.Header>
                 <Card.Body>
-                  <Card.Img variant="top" src={card.image.url} alt={card.title} />
+                  <Card.Img variant="top" src={card.image.url} style={{ minHeight:'200px', minWidth:'200px', maxHeight:'500px', maxWidth:'500px', objectFit: 'cover' }} />
                   <Card.Title>{card.subtitle}</Card.Title>
-                  <Card.Text>{card.description}</Card.Text>
-                  <Button variant="primary" onClick={() => goToCardDetails(card._id)}>View Details</Button>
+                  <Card.Text>
+                    {card.description}
+                  </Card.Text>
+                  <Button variant="primary" size='sm' onClick={() => goToCardDetails(card._id)}>Go to card</Button>
                 </Card.Body>
-                <Card.Footer>
-                  {card.likes.length} <AiOutlineLike />
-                </Card.Footer>
+                <Card.Footer className="text-muted">{card.likes.length} <AiOutlineLike size={18} style={{ marginTop: '-5px' }} /></Card.Footer>
               </Card>
             </Col>
           ))}
