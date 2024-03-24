@@ -13,7 +13,7 @@ export const doGetAllCards = async (): Promise<{ error: string | null, result: I
     const data = await response.json()
     if (!response.ok) return { error: data, result: null }
     return { error: null, result: data }
-  } 
+  }
   catch (err) {
     const errMessage = (err as Error).message
     return { error: errMessage, result: null }
@@ -36,7 +36,7 @@ export const doGetMyCards = async (): Promise<{ error: string | undefined, resul
     const data = await response.json()
     if (!response.ok) return { error: data, result: undefined }
     return { error: undefined, result: data }
-  } 
+  }
   catch (err) {
     const errMessage = (err as Error).message
     return { error: errMessage, result: undefined }
@@ -67,7 +67,7 @@ export const doToggleCardLike = async (cardId: string): Promise<{ error: string 
     }
 
     return { error: null, result: data };
-  } 
+  }
   catch (err) {
     const errMessage = (err as Error).message;
     return { error: errMessage, result: null };
@@ -99,7 +99,8 @@ export const doDeleteCard = async (cardId: string, bizNumber: number): Promise<{
     }
 
     return { error: null, result: data };
-  } catch (err) {
+  }
+  catch (err) {
     const errMessage = (err as Error).message;
     return { error: errMessage, result: null };
   }
