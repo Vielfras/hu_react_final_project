@@ -1,19 +1,12 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Col, Container, Form, Row } from 'react-bootstrap';
 import { ToastsContext } from '../../context/ToastsContext';
+import { doUpdateCard } from "../../services/CardService";
 import { getToken } from "../../services/UserService";
 import FormField from '../../components/FormField/FormField';
+import { ICard } from "../../interfaces/CardInterfaces";
 
-interface ICard {
-  _id: string;
-  title: string;
-  subTitle: string;
-  description: string;
-  image: { url: string, alt: string };
-  bizNumber: number;
-  user_id: string;
-}
 
 export default function EditCard() {
   const location = useLocation();
