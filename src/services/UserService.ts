@@ -89,7 +89,6 @@ const decodeToken = async (token: string): Promise<IUserSigninJwtPayload> => {
 }
 
 
-// fetch the extended user details from the server
 export const fetchUserDetails = async (): Promise<{ error: string | null, result?: IUserDetails | undefined }> => {
   const token = await getToken()
   if (!token) {

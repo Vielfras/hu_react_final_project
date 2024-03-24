@@ -135,13 +135,24 @@ export const doUpdateCard = async (cardId: string, cardData: ICard): Promise<{ e
       return { error: 'Authentication required. No token found.', result: null };
     }
 
+    // Deep copy the cardData to avoid mutating the original object
+    let cardDataCopy = JSON.parse(JSON.stringify(cardData));
+
+    // Remove _id from image and address if they exist
+    if (cardDataCopy.image && '_id' in cardDataCopy.image) {
+      delete cardDataCopy.image._id;
+    }
+    if (cardDataCopy.address && '_id' in cardDataCopy.address) {
+      delete cardDataCopy.address._id;
+    }
+
     const response = await fetch(`${apiBase}/cards/${cardId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'x-auth-token': token,
       },
-      body: JSON.stringify(cardData),
+      body: JSON.stringify(cardDataCopy),
     });
 
     const data = await response.json();
