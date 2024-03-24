@@ -22,17 +22,16 @@ Email: viel@gmail.com
 password: Aa1234!!
 
 # Features
-- [ ] NavBar
+- [ ] Header
     - [ ] SearchBar
         - [X] Design
         - [ ] Implementation
     - [X] Light/Dark mode
 - [X] Login Page
-- [ ] Business Page
 - [ ] Business Card
-    - [ ] Can be favorited
+    - [X] Can be liked/unliked
+    - [ ] Can be deleted
 - [X] Footer
-- [ ] Accesability 
 - [ ] About page
     - [X] Must explain how to use the page
     - [ ] Link Business part to SignUp link
@@ -59,8 +58,8 @@ password: Aa1234!!
         - [ ] API call finalisation
         - [ ] Form validation
     - [ ] My Created Business Cards 
-    - [ ] My Liked Business Cards 
-    - [ ] Favorite Cards
+    - [X] My Liked Business Cards 
+- [ ] Accesability 
 
 # Requirements:
 - [ ] Axios - for fetching from backend.
