@@ -73,3 +73,34 @@ export const doToggleCardLike = async (cardId: string): Promise<{ error: string 
     return { error: errMessage, result: null };
   }
 };
+
+// ---------------------------------------------------------------------------------------------------------
+
+export const doDeleteCard = async (cardId: string, bizNumber: number): Promise<{ error: string | null, result: any | null }> => {
+  try {
+    const token = await getToken();
+    if (!token) {
+      return { error: 'Authentication required. No token found.', result: null };
+    }
+
+    const response = await fetch(`${apiBase}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': token,
+      },
+      body: JSON.stringify({ bizNumber }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { error: data.message || 'Failed to delete card', result: null };
+    }
+
+    return { error: null, result: data };
+  } catch (err) {
+    const errMessage = (err as Error).message;
+    return { error: errMessage, result: null };
+  }
+};

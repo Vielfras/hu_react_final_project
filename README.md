@@ -28,9 +28,9 @@ password: Aa1234!!
         - [ ] Implementation
     - [X] Light/Dark mode
 - [X] Login Page
-- [ ] Business Card
+- [X] Business Card
     - [X] Can be liked/unliked
-    - [ ] Can be deleted
+    - [X] Can be deleted
 - [X] Footer
 - [ ] About page
     - [X] Must explain how to use the page
@@ -51,7 +51,7 @@ password: Aa1234!!
 - [ ] Pages
     - [ ] Create New Business Card
         - [X] Form To create card
-        - [ ] API call finalisation
+        - [X] API call finalisation
         - [ ] Form validation
     - [ ] Edit Business Card
         - [X] Form To edit card

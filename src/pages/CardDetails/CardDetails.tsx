@@ -1,18 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ICard } from '../../interfaces/CardInterfaces';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { CiEdit, CiTrash } from 'react-icons/ci';
 import { FaPhone, FaEnvelope, FaGlobe, FaBuilding, FaHome, FaMapPin, FaMapMarkerAlt, FaCity } from 'react-icons/fa';
-
+import { ToastsContext } from '../../context/ToastsContext';
+import { doDeleteCard } from '../../services/CardsService';
 
 import './CardDetails.css';
+
 
 export default function CardDetails() {
   const { cardId } = useParams();
   const [card, setCard] = useState<ICard | null>(null);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const toasts = useContext(ToastsContext)
+
+  const handleDeleteCard = async () => {
+    if (!cardId || !card?.bizNumber) {
+      toasts?.addToast('Error', 'Delete Failed', 'Invalid card ID or business number.', 'danger');
+      return;
+    }
+
+    const isConfirmed = window.confirm('Are you sure you want to delete this card?');
+    if (!isConfirmed) {
+      return;
+    }
+
+    const { error, result } = await doDeleteCard(cardId, card.bizNumber);
+
+    if (error) {
+      toasts?.addToast('Error', 'Delete Failed', error, 'danger');
+    } else {
+      toasts?.addToast('Success', 'Card Deleted', 'Your business card has been successfully deleted.', 'success');
+      navigate('/mycards');
+    }
+  };
+
 
   useEffect(() => {
     const fetchCard = async () => {
@@ -35,6 +60,7 @@ export default function CardDetails() {
   const goToEditCard = () => {
     navigate(`/edit-card/${cardId}`, { state: { card } });
   };
+
 
   return (
     <Container className='mt-5'>
@@ -66,7 +92,7 @@ export default function CardDetails() {
             <Button variant="outline-primary" size='sm' onClick={goToEditCard}>
               <CiEdit /> Edit Card
             </Button>
-            <Button variant="outline-danger" size='sm' className='ms-5'>
+            <Button variant="outline-danger" size='sm' className='ms-5' onClick={handleDeleteCard}>
               <CiTrash /> Delete Card
             </Button>
           </Card.Footer>
