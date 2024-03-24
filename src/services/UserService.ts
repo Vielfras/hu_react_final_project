@@ -4,11 +4,7 @@ import { IUserDetails } from '../interfaces/UserInterfaces'
 import { apiBase } from '../config'
 
 
-export {
-  doSignIn,
-}
-
-const doSignIn = async (email: string, password: string): Promise<{ error: string | null, result?: IUserDetails | undefined }> => {
+export const doSignIn = async (email: string, password: string): Promise<{ error: string | null, result?: IUserDetails | undefined }> => {
   try {
     const response = await fetch(`${apiBase}/users/login`, {
       method: 'POST',
@@ -40,15 +36,12 @@ const doSignIn = async (email: string, password: string): Promise<{ error: strin
 
 export const doSignUp = async (userData: IUserSignup): Promise<{ error: string | undefined }> => {
   try {
-    // send the email & password to the server,
-    // if all goes well we should receive a token (string)
     const response = await fetch(`${apiBase}/users`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData)
     })
 
-    // let's get the response text (error message -or- token)
     const data = await response.json()
 
     if (!response.ok) {
@@ -105,7 +98,6 @@ export const fetchUserDetails = async (): Promise<{ error: string | null, result
       }
     })
 
-    // return an error if server returned status code not in 200-299 range
     if (!response.ok) {
       return { error: `Error fetching the user's details (${response.statusText})` }
     }

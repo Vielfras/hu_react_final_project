@@ -9,7 +9,7 @@ import { doGetCardById, doUpdateCard } from "../../services/CardsService";
 export default function EditCard() {
   const toasts = useContext(ToastsContext);
   const navigate = useNavigate();
-  const { cardId } = useParams(); 
+  const { cardId } = useParams();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [cardData, setCardData] = useState({
@@ -48,7 +48,7 @@ export default function EditCard() {
       });
       setValidity({ phone: true, email: true, web: true });
     };
-    
+
     fetchCardData();
   }, [cardId, toasts]);
 
@@ -71,16 +71,19 @@ export default function EditCard() {
       isValid = urlRegex.test(value);
     }
 
-    setCardData(prev => ({
-      ...prev,
-      [field.includes('.') ? field.split('.')[0] : field]: field.includes('.') ? { ...prev[field.split('.')[0]], [field.split('.')[1]]: value } : value,
-    }));
-
+    setCardData(prev => {
+      const [parentField, childField] = field.split('.');
+      return field.includes('.')
+        ? { ...prev, [parentField]: { ...prev[parentField], [childField]: value } }
+        : { ...prev, [field]: value };
+    });
+    
     setValidity(prev => ({ ...prev, [field]: isValid }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const allFieldsValid = Object.values(validity).every(field => field === true);
     if (!allFieldsValid) {
       toasts?.addToast('Error', 'Invalid Form', 'Please ensure all fields are correctly filled.', 'danger');

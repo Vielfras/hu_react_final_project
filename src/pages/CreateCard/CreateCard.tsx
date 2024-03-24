@@ -45,10 +45,12 @@ export default function CreateCard() {
             isValid = urlRegex.test(value);
         }
 
-        setCardData(prev => ({
-            ...prev,
-            [field.includes('.') ? field.split('.')[0] : field]: field.includes('.') ? { ...prev[field.split('.')[0]], [field.split('.')[1]]: value } : value,
-        }));
+        setCardData(prev => {
+            const [parentField, childField] = field.split('.');
+            return field.includes('.')
+                ? { ...prev, [parentField]: { ...prev[parentField], [childField]: value } }
+                : { ...prev, [field]: value };
+        });
 
         setValidity(prev => ({ ...prev, [field]: isValid }));
     };
