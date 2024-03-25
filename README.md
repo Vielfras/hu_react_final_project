@@ -45,7 +45,7 @@ password: Aa1234!!
         - [X] Must have one of the following special chars: *_-&^%$#@!
     - [X] Email verification
     - [X] Form fields must show success/failure visualy to user
-    - [ ] Add FormField for password validation - needs to be the same as previous password.
+    - [X] Add FormField for password validation - needs to be the same as previous password.
 - [X] Login/SignUp
     - [X] Page Design
     - [X] Save access token across visits

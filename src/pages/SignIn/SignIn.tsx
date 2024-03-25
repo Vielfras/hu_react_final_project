@@ -3,7 +3,8 @@ import { useContext, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { ToastsContext } from '../../context/ToastsContext';
-import { Button, Spinner } from 'react-bootstrap';
+import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
+import FormField from '../../components/FormField/FormField';
 
 export default function SignIn() {
 
@@ -43,40 +44,32 @@ export default function SignIn() {
   }
 
   return (
-    <div className='SignIn Page'>
-      <h3>Sign-In Page</h3>
-      <br></br>
+    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+      <Row className="justify-content-center">
+        <Col xs={12} md={12} lg={12}>
+          <div className='SignIn Page text-center' style={{ maxWidth: "600px", margin: "auto" }}>
+            <h3>Sign-In</h3>
+            <form onSubmit={handleSubmit}>
+              <FormField controlId="formBasicEmail" label="" type="email" 
+                placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}
+              />
+              <FormField controlId="formBasicPassword" label="" type="password" 
+                placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}
+              />
 
-      <form onSubmit={handleSubmit}>
-
-        <input
-          type='email' value={email}
-          onChange={(e) => setEmail(e.target.value)} placeholder='Enter your email'
-          required
-        />
-
-        <br></br><br></br>
-
-        <input
-          type='password' value={password} placeholder='Enter your password'
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-
-        <br></br><br></br>
-
-        <Button type='submit' variant='primary' size='sm' disabled={isBusy}>
-          {
-            (isBusy) &&
-            <Spinner
-              className='me-2' as="span" animation="border"
-              size="sm" role="status" aria-hidden="true"
-            />
-          }
-          Sign In
-        </Button>
-
-      </form>
-    </div>
-  )
+              <Button type='submit' variant='primary' size='sm' disabled={isBusy} className="mt-4">
+                {isBusy && (
+                  <Spinner
+                    className='me-2' as="span" animation="border"
+                    size="sm" role="status" aria-hidden="true"
+                  />
+                )}
+                Sign In
+              </Button>
+            </form>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
 }
