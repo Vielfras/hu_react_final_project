@@ -1,19 +1,22 @@
 import './MyOwnCards.css'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Col, Row, Button, Card, Spinner } from 'react-bootstrap';
+import { Col, Row, Spinner } from 'react-bootstrap';
 
+import { AuthContext } from '../../context/AuthContext';
 import { ICard } from '../../interfaces/CardInterfaces';
 import { doGetMyCards } from '../../services/CardsService';
-import { AiOutlineLike } from 'react-icons/ai';
+import BusinessCard from '../../components/BusinessCard/BusinessCard';
 
 export default function MyOwnCards() {
-
   const [cards, setCards] = useState<ICard[] | undefined>(undefined);
   const [error, setError] = useState<string | undefined>(undefined);
 
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
+
+  const userId:string = auth?.userDetails?._id || '';
 
   useEffect(() => {
     const getMyCards = async () => {
@@ -47,18 +50,7 @@ export default function MyOwnCards() {
             <Row xs={1} md={2} lg={3} xl={4} className="g-5">
               {cards.map((card) => (
                 <Col key={card._id}>
-                  <Card className="text-center">
-                    <Card.Header style={{ fontWeight: '500' }}>{card.title}</Card.Header>
-                    <Card.Body>
-                    <Card.Img variant="top" src={card.image.url} style={{ minHeight:'200px', minWidth:'200px', maxHeight:'500px', maxWidth:'500px', objectFit: 'cover' }} />
-                      <Card.Title>{card.subtitle}</Card.Title>
-                      <Card.Text>
-                        {card.description}
-                      </Card.Text>
-                      <Button variant="primary" size='sm' onClick={() => goToCardDetails(card._id)}>Go to card</Button>
-                    </Card.Body>
-                    <Card.Footer className="text-muted">{card.likes.length} <AiOutlineLike size={18} style={{ marginTop: '-5px' }} /></Card.Footer>
-                  </Card>
+                  <BusinessCard key={card._id} userId ={userId}  card={card} goToCardDetails={goToCardDetails} />
                 </Col>
               ))}
             </Row>

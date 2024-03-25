@@ -9,6 +9,7 @@ import { doGetAllCards } from '../../services/CardsService';
 import { AuthContext } from '../../context/AuthContext'; // Ensure this path is correct
 
 import { ICard } from '../../interfaces/CardInterfaces';
+import BusinessCard from '../../components/BusinessCard/BusinessCard';
 
 export default function LikedCards() {
   const [cards, setCards] = useState<ICard[] | undefined>(undefined);
@@ -33,7 +34,7 @@ export default function LikedCards() {
     navigate(`/card-details/${cardId}`, { state: { cardId: cardId } })
   };
 
-  const userId = auth?.userDetails?._id || ''; 
+  const userId = auth?.userDetails?._id || '';
 
   return (
     <div className='LikedCards'>
@@ -47,18 +48,7 @@ export default function LikedCards() {
           <Row xs={1} md={2} lg={3} xl={4} className="g-5">
             {cards.filter(card => card.likes.includes(userId)).map((card) => (
               <Col key={card._id}>
-                <Card className="text-center mb-3">
-                  <Card.Header style={{ fontWeight: '500' }}>{card.title}</Card.Header>
-                  <Card.Body>
-                    <Card.Img variant="top" src={card.image.url} style={{ height: '200px', objectFit: 'cover' }} />
-                    <Card.Title>{card.subtitle}</Card.Title>
-                    <Card.Text>
-                      {card.description}
-                    </Card.Text>
-                    <Button variant="primary" size='sm' onClick={() => goToCardDetails(card._id)}>Go to card</Button>
-                  </Card.Body>
-                  <Card.Footer className="text-muted">{card.likes.length} <AiOutlineLike size={18} style={{ marginTop: '-5px' }} /></Card.Footer>
-                </Card>
+                <BusinessCard key={card._id} userId={userId} card={card} goToCardDetails={goToCardDetails} />
               </Col>
             ))}
           </Row>
