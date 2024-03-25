@@ -21,7 +21,7 @@ export default function Restricted(props: PropsWithChildren<IRestrictedProps>) {
       role = 'user';
     }
     return role;
-  }, [auth?.userDetails]); // Dependencies array- useMemo will only recompute the memoized value when 'auth.userDetails' has changed.
+  }, [auth?.userDetails]); 
 
   return (
     <>
