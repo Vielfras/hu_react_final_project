@@ -23,7 +23,7 @@ export default function AuthProvider({children}:{children:React.ReactNode}) {
       setUserDetails(result)
     }
     loadUserDetails();
-  },[userDetails])
+  },[])
   
   const signIn = async (email:string, password:string):Promise<{error:string|null}> => {
     let { error,result } = await doSignIn(email,password)

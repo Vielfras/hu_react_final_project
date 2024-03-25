@@ -19,6 +19,7 @@ export default function SearchBar() {
           const filteredSuggestions = result?.filter(card =>
             card.title.toLowerCase().includes(query.toLowerCase())
           );
+          
           setSuggestions(filteredSuggestions);
           setShowSuggestions(true);
         }

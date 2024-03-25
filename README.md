@@ -10,6 +10,7 @@
 admin@gmail.com
 Abc!123Abc
 
+
 ## Business Credentials
 "email": "ellvis@email.com",
 "password": "Abc!123Abc"
@@ -17,12 +18,14 @@ Abc!123Abc
 "email": vielf@email.com
 "password": Aa1234!!
 
+
 ## User Credentials
 Email: viel@gmail.com
 password: Aa1234!!
 
+
 # Features
-- [ ] Header
+- Header
     - [X] SearchBar
         - [X] Design
         - [X] Implementation
@@ -32,9 +35,8 @@ password: Aa1234!!
     - [X] Can be liked/unliked
     - [X] Can be deleted
 - [X] Footer
-- [ ] About page
-    - [X] Must explain how to use the page
-- [ ] Form validation
+- [X] About page
+- SignUp Form validation
     - [X] Passworm must be:
         - [X] Must be 8 characters long
         - [X] 1 English capital letter 
@@ -44,9 +46,11 @@ password: Aa1234!!
     - [X] Email verification
     - [X] Form fields must show success/failure visualy to user
     - [ ] Add FormField for password validation - needs to be the same as previous password.
-- [ ] Login/SignUp
+- [X] Login/SignUp
+    - [X] Page Design
     - [X] Save access token across visits
-- [ ] Pages
+    - [X] API Implementation
+- Pages
     - [ ] Create New Business Card
         - [X] Form To create card
         - [X] API call finalisation
@@ -57,12 +61,12 @@ password: Aa1234!!
         - [ ] Form validation
     - [X] My Created Business Cards 
     - [X] My Liked Business Cards 
-    - [ ] Search Page
+    - [X] Search Page
 - [ ] Accesability 
 
 # Requirements:
 - [ ] Axios - for fetching from backend.
-- [ ] API calls must be inside try/catch.
+- [X] API calls must be inside try/catch.
 
 
 # Bonuses:
