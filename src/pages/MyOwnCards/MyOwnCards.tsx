@@ -60,13 +60,7 @@ export default function MyOwnCards() {
           (!error) &&
           <>
             <Spinner
-              as="span"
-              animation="grow"
-              size="sm"
-              role="status"
-              variant='primary'
-              aria-hidden="true"
-              className='me-2'
+              as="span" animation="grow" size="sm" role="status" variant='primary' aria-hidden="true" className='me-2'
             />
             <span>Loading cards, Please wait ...</span>
           </>
