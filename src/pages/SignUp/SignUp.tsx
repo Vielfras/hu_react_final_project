@@ -134,20 +134,17 @@ export default function SignUp() {
             <Form onSubmit={handleSubmit}>
 
               {/* Full Name -------------------------------------------------- */}
-
               <Row className="mb-4 fw-bold">
                 <FormField
                   controlId="formGridFirstName" label="Name" type="text" placeholder="First"
                   value={firstName || ''} onChange={handleFirstNameChange}
                   regex={nameRegex} validationMessage="First name must be at least 2 letters." isValid={firstNameIsValid}
                 />
-
                 <FormField
                   controlId="formGridMiddleName" label="&nbsp;" type="text" placeholder="Middle (optional)"
                   value={middleName || ''} onChange={handleMiddleNameChange}
                   regex={nameRegex} validationMessage="Middle name must be at least 2 letters." isValid={middleNameIsValid}
                 />
-
                 <FormField
                   controlId="formGridLastName" label="&nbsp;" type="text"
                   placeholder="Last" value={lastName || ''} onChange={handleLastNameChange}
@@ -158,10 +155,9 @@ export default function SignUp() {
               {/* Phone & Email ---------------------------------------------- */}
 
               <Row className="mb-4 fw-bold">
-                <FormField controlId="formGridPhone" label="Phone" type="text" placeholder="Phone number" value={phone || ''} 
+                <FormField controlId="formGridPhone" label="Phone" type="text" placeholder="Phone number" value={phone || ''}
                   onChange={handlePhoneChange} regex={phoneRegex} validationMessage="Please enter a valid phone number." isValid={phoneIsValid}
                 />
-
                 <FormField
                   controlId="formGridEmail" label="Email" type="email" placeholder="Email Address" value={email || ''}
                   onChange={handleEmailChange} regex={emailRegex} validationMessage="Please enter a valid email address." isValid={emailIsValid}
@@ -186,33 +182,25 @@ export default function SignUp() {
 
               {/* Address ---------------------------------------------------- */}
 
-              <Row className="mb-4  fw-bold">
-                <Form.Group as={Col} controlId="formGridCountry">
-                  <Form.Label>Address</Form.Label>
-                  <Form.Control placeholder="Country" value={country} onChange={(e) => setCountry(e.target.value)} />
-                </Form.Group>
-
-                <Form.Group as={Col} controlId="formGridCity">
-                  <Form.Label>City</Form.Label>
-                  <Form.Control placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} />
-                </Form.Group>
+              <Row className="mb-4 fw-bold">
+                <FormField controlId="formGridCountry" label="Country" type="text"
+                  placeholder="Country" value={country || ''} onChange={(e) => setCountry(e.target.value)}
+                />
+                <FormField controlId="formGridCity" label="City" type="text"
+                  placeholder="City" value={city || ''} onChange={(e) => setCity(e.target.value)}
+                />
               </Row>
 
               <Row className="mb-4 fw-bold">
-                <Form.Group as={Col} controlId="formGridStreet">
-                  <Form.Label>Street</Form.Label>
-                  <Form.Control placeholder="Street" value={street} onChange={(e) => setStreet(e.target.value)} />
-                </Form.Group>
-
-                <Form.Group as={Col} controlId="formGridHouseNumber">
-                  <Form.Label>House</Form.Label>
-                  <Form.Control placeholder="House number" value={houseNumber} onChange={(e) => setHouseNumber(e.target.value)} />
-                </Form.Group>
-
-                <Form.Group as={Col} controlId="formGridZipCode">
-                  <Form.Label>Zip Code</Form.Label>
-                  <Form.Control placeholder="Zip code" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
-                </Form.Group>
+                <FormField controlId="formGridStreet" label="Street" type="text"
+                  placeholder="Street" value={street || ''} onChange={(e) => setStreet(e.target.value)}
+                />
+                <FormField controlId="formGridHouseNumber" label="House" type="text"
+                  placeholder="House number" value={houseNumber || ''} onChange={(e) => setHouseNumber(e.target.value)}
+                />
+                <FormField controlId="formGridZipCode" label="Zip Code" type="text"
+                  placeholder="Zip code" value={zipCode || ''} onChange={(e) => setZipCode(e.target.value)}
+                />
               </Row>
 
               <Row className="m-5 fw-bold border-bottom"></Row>
