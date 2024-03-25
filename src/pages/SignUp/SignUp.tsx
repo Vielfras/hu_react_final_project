@@ -36,6 +36,7 @@ export default function SignUp() {
   const [lastNameIsValid, setLastNameIsValid] = useState<boolean>(true);
   const [emailIsValid, setEmailIsValid] = useState<boolean>(true);
   const [passwordIsValid, setPasswordIsValid] = useState<boolean>(true);
+  const [passwordVerificationIsValid, setPasswordVerificationIsValid] = useState<boolean>(true);
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -73,6 +74,12 @@ export default function SignUp() {
     setPasswordIsValid(passwordRegex.test(value));
   };
 
+  const handlePasswordVerificationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setPasswordVerification(value);
+    setPasswordVerificationIsValid(value === password);
+  };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -102,9 +109,9 @@ export default function SignUp() {
       isBusiness: isBusiness,
     }
 
-    if (!firstNameIsValid || !middleNameIsValid || !lastNameIsValid || !emailIsValid || !passwordIsValid) {
-      toasts?.addToast('⚠️', 'Error Signing-Up', 'Please correct invalid fields.', 'danger')
-      setIsBusy(false)
+    if (!firstNameIsValid || !middleNameIsValid || !lastNameIsValid || !emailIsValid || !passwordIsValid || !passwordVerificationIsValid) {
+      toasts?.addToast('⚠️', 'Error Signing-Up', 'Please correct invalid fields.', 'danger');
+      setIsBusy(false);
       return;
     }
 
@@ -172,10 +179,21 @@ export default function SignUp() {
                 />
 
                 {/* TODO - Add password validation - needs to be the same as previous field */}
-                {/* <Form.Group as={Col} controlId="formGridPasswordVerification">
-                  <Form.Label>&nbsp;</Form.Label>
-                  <Form.Control type="password" placeholder="Repeat Password" value={passwordVerification} onChange={(e) => setPasswordVerification(e.target.value)} />
-                </Form.Group> */}
+                <Col md={6}>
+                  <Form.Label>Password Verification</Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Verify Password"
+                    value={passwordVerification}
+                    onChange={handlePasswordVerificationChange}
+                    isInvalid={!passwordVerificationIsValid}
+                  />
+                  {!passwordVerificationIsValid && (
+                    <Form.Control.Feedback type="invalid">
+                      Passwords must match.
+                    </Form.Control.Feedback>
+                  )}
+                </Col>
               </Row>
 
               <Row className="m-5 fw-bold border-bottom"></Row>
