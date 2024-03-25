@@ -2,14 +2,16 @@ import './Footer.css'
 import { BiSolidCircle } from 'react-icons/bi'
 import { FaFacebook, FaInstagram, FaLinkedinIn, FaTwitter } from 'react-icons/fa6'
 import { useState } from 'react'
+import NewsletterSubscriberForm from '../NewsletterSubscriberForm/NewsletterSubscriberForm'
 
-type subscribingStatusType = 'before'|'working'|'after'
+type subscribingStatusType = 'before' | 'working' | 'after'
 
 export default function Footer() {
 
   //#region     -- start: fake subscribe
-  const [email,setEmail] = useState('')
-  const [subPhase,setSubPhase] = useState<subscribingStatusType>('before')
+  const [email, setEmail] = useState('')
+  const [subPhase, setSubPhase] = useState<subscribingStatusType>('before')
+
   const handleSubscribe = async () => {
     setSubPhase('working')
     const response = await fetch('https://fakeresponder.com?sleep=2000')
@@ -63,25 +65,25 @@ export default function Footer() {
                 <ul className="list-unstyled">
                   <li>
                     <a href="#" className="text-decoration-none">
-                      <span><FaTwitter size={15} className='SocialMediaIcon'/>&nbsp;</span>
+                      <span><FaTwitter size={15} className='SocialMediaIcon' />&nbsp;</span>
                       Tweet us a tweet
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-decoration-none">
-                      <span><FaFacebook size={15} className='SocialMediaIcon'/>&nbsp;</span>
+                      <span><FaFacebook size={15} className='SocialMediaIcon' />&nbsp;</span>
                       Visit our page
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-decoration-none">
-                      <span><FaInstagram size={15} className='SocialMediaIcon'/>&nbsp;</span>
+                      <span><FaInstagram size={15} className='SocialMediaIcon' />&nbsp;</span>
                       It's getting reel
                     </a>
                   </li>
                   <li>
                     <a href="#" className="text-decoration-none">
-                      <span><FaLinkedinIn size={15} className='SocialMediaIcon'/>&nbsp;</span>
+                      <span><FaLinkedinIn size={15} className='SocialMediaIcon' />&nbsp;</span>
                       We should link !
                     </a>
                   </li>
@@ -93,21 +95,8 @@ export default function Footer() {
                 <h4>Newsletter</h4>
                 <div>
                   <label htmlFor="Newsletter" className="form-label">Subscribe To Our Newsletter</label>
-                  <div className='d-flex'>
-                    <input type="text" value={email} onChange={(e)=>setEmail(e.target.value)} className="form-control form-control-sm me-2" placeholder="name@example.com" disabled={subPhase==='after'}/>
-                    <button onClick={handleSubscribe} className={`btn btn-sm ${subPhase==='after'?'btn-success':'btn-danger'}`} style={{lineHeight:'18px'}} disabled={subPhase==='after'}>
-                      { 
-                        subPhase==='before' && 'Subscribe'
-                        ||
-                        subPhase==='working' && <div className='d-flex'>
-                                                  <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
-                                                  <span role="status">Wait...</span>
-                                                </div>
-                        ||
-                        subPhase==='after' && 'Success'
-                      }
-                    </button>
-                  </div>
+                  <NewsletterSubscriberForm email={email} subPhase={subPhase} setEmail={setEmail} handleSubscribe={handleSubscribe}
+                  />
                 </div>
               </div>
             </div>
@@ -116,4 +105,4 @@ export default function Footer() {
       </footer>
     </div>
   )
-}
+};
