@@ -31,9 +31,9 @@ export default function Header() {
   }, [])
 
   const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light'; // Determine the new theme based on the current one
-    setTheme(newTheme); // Update the state with the new theme
-    elmDocument.setAttribute('data-bs-theme', newTheme); // Set the attribute based on the new theme
+    const newTheme = theme === 'light' ? 'dark' : 'light'; 
+    setTheme(newTheme); 
+    elmDocument.setAttribute('data-bs-theme', newTheme);
     localStorage.setItem('theme', newTheme)
   }
 
