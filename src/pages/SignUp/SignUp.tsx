@@ -178,7 +178,6 @@ export default function SignUp() {
                   onChange={handlePasswordChange} regex={passwordRegex} validationMessage="Password must be at least 8 characters long, include 1 capital letter, 1 lowercase letter, at least 1 number, and 1 special character (*_-&^%$#@!)." isValid={passwordIsValid}
                 />
 
-                {/* TODO - Add password validation - needs to be the same as previous field */}
                 <Col md={6}>
                   <Form.Label>Password Verification</Form.Label>
                   <Form.Control
