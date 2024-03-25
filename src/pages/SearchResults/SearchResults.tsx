@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Row, Col, Card, Button, Spinner } from 'react-bootstrap';
+import { Row, Col, Spinner } from 'react-bootstrap';
+import { AuthContext } from '../../context/AuthContext';
 import { doGetAllCards } from '../../services/CardsService';
-import { AiOutlineLike } from 'react-icons/ai';
+import BusinessCard from '../../components/BusinessCard/BusinessCard';
+import { ICard } from '../../interfaces/CardInterfaces';
 
 export default function SearchResults() {
   const [cards, setCards] = useState([]);
@@ -11,6 +13,11 @@ export default function SearchResults() {
   const navigate = useNavigate();
   const location = useLocation();
   const query = location.state?.query || '';
+
+  const auth = useContext(AuthContext);
+
+  const userId:string = auth?.userDetails?._id || '';
+
 
   useEffect(() => {
     const fetchMatchingCards = async () => {
@@ -53,20 +60,9 @@ export default function SearchResults() {
         <p>Error: {error}</p>
       ) : cards.length > 0 ? (
         <Row xs={1} md={2} lg={3} xl={4} className="g-5">
-          {cards.map((card) => (
+          {cards.map((card:ICard) => (
               <Col key={card._id}>
-              <Card className="text-center">
-                <Card.Header style={{ fontWeight: '500' }}>{card.title}</Card.Header>
-                <Card.Body>
-                  <Card.Img variant="top" src={card.image.url} style={{ minHeight:'200px', minWidth:'200px', maxHeight:'500px', maxWidth:'500px', objectFit: 'cover' }} />
-                  <Card.Title>{card.subtitle}</Card.Title>
-                  <Card.Text>
-                    {card.description}
-                  </Card.Text>
-                  <Button variant="primary" size='sm' onClick={() => goToCardDetails(card._id)}>Go to card</Button>
-                </Card.Body>
-                <Card.Footer className="text-muted">{card.likes.length} <AiOutlineLike size={18} style={{ marginTop: '-5px' }} /></Card.Footer>
-              </Card>
+                <BusinessCard key={card._id} userId ={userId}  card={card} goToCardDetails={goToCardDetails} />
             </Col>
           ))}
         </Row>
